@@ -1,0 +1,31 @@
+<resources>
+    <string name="app_name">Patha Sathi</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    //Notification List
+    <string-array name="notification_list">
+        <item>Arif posted for help </item>
+        <item>Khalid wants add you as pathosathi </item>
+        <item>Lelin changed his profile picture</item>
+        <item>Tonmoy likes your post</item>
+        <item>Mishu wants add you as pathosathi </item>
+        <item>Mitu accepted your pathosathi request </item>
+        <item>Mousumi commented on your post</item>
+        <item>You have new friend suggestion </item>
+        <item>Kamona wants add you as pathosathi </item>
+        <item>Sumaiya wants add you as pathosathi </item>
+        <item>Arif posted for help </item>
+        <item>Khalid wants add you as pathosathi </item>
+        <item>Lelin changed his profile picture</item>
+        <item>Tonmoy likes your post</item>
+        <item>Mishu wants add you as pathosathi </item>
+        <item>Mitu accepted your pathosathi request </item>
+        <item>Mousumi commented on your post</item>
+        <item>You have new friend suggestion </item>
+        <item>Kamona wants add you as pathosathi </item>
+        <item>Sumaiya wants add you as pathosathi </item>
+    </string-array>
+    <string name="title_activity_current_location">Map</string>
+</resources>
