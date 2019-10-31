@@ -10,6 +10,7 @@
     <color name="red">#dd4b39</color>
     <color name="toolbar_shadow">#DFDFDF</color>
 
+
     //User Profile Color
     <color name="primary_color">#FFFFFF</color>
     <color name="primary_color2">#252121</color>
@@ -21,6 +22,9 @@
     <color name="black">#00000d</color>
     <color name="light_black">#EEECEC</color>
 
+    // Application Style color
+
+    <color name="dim_white">#D6D6D6</color>
 
 
 </resources>
