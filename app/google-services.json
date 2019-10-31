@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "75470973515",
+    "firebase_url": "https://pathasathi-3efcb.firebaseio.com",
+    "project_id": "pathasathi-3efcb",
+    "storage_bucket": "pathasathi-3efcb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:75470973515:android:5cd3fa1ec5a56cc2093bce",
+        "android_client_info": {
+          "package_name": "com.example.pathasathi"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "75470973515-qg4c0dgonfqinsle1t1o61aodd1o6i9e.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDPvs-K_VD8Gb7c0Rofug2GIxbZjATxslY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "75470973515-qg4c0dgonfqinsle1t1o61aodd1o6i9e.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
