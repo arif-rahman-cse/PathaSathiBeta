@@ -4,7 +4,18 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
-    //Notification List
+    <!--    Home fragment String -->
+    <string name="my_patha_sathi">My Pathasathi</string>
+    <string name="current_location">Current Location</string>
+    <string name="anyone_there">Anyone There?</string>
+    <string name="help">Help</string>
+    <string name="emergency_call">Emergency Call</string>
+    <string name="mark_as_a_safe">Mark as a Safe</string>
+    <string name="patha_sathi">PATHASHATHI</string>
+    <string name="instant_camera">Instant Camera</string>
+    <string name="toolbar_menu">Toolbar Menu</string>
+
+    <!-- Notification List String  -->
     <string-array name="notification_list">
         <item>Arif posted for help </item>
         <item>Khalid wants add you as pathosathi </item>
@@ -27,5 +38,61 @@
         <item>Kamona wants add you as pathosathi </item>
         <item>Sumaiya wants add you as pathosathi </item>
     </string-array>
+
     <string name="title_activity_current_location">Map</string>
+
+    <!-- Strings related to login and registration -->
+    <string name="email">smrahmanarif@gmail.com</string>
+    <string name="example_email">example@gmail.com</string>
+    <string name="password">Password</string>
+    <string name="log_in">Login</string>
+    <string name="register">Register</string>
+    <string name="become_a_pathasathi">Become a PathaSathi</string>
+    <string name="prompt_name">Name</string>
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password (optional)</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="action_sign_out">Sign out</string>
+    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_field_required">This field is required</string>
+    <string name="resend_verification_email">Resend Verification Email</string>
+    <string name="forgot_password">Forgot Password</string>
+    <string name="sign_in">Sign In</string>
+    <string name="tabian_consulting_logo">Tabian Consulting Logo</string>
+    <string name="pathasathi_registration">PathaSathi Registration</string>
+    <string name="confirm_password">Confirm Password</string>
+
+    <!-- Firestore Strings -->
+    <string name="collection_users">Users</string>
+    <string name="collection_chatrooms">Chatrooms</string>
+    <string name="collection_chat_messages">Chat Messages</string>
+    <string name="collection_chatroom_user_list">User List</string>
+    <string name="collection_user_locations">User Locations</string>
+
+
+    <!-- Bottom navigation String -->
+    <string name="home">Home</string>
+    <string name="profile">Profile</string>
+    <string name="notification">Notification</string>
+    <string name="amar_pathasathi">Amar PathaSathi</string>
+    <string name="move">Move</string>
+
+    <!--    Navigation drawer string -->
+    <string name="open">Open</string>
+    <string name="close">Close</string>
+    <string name="header_name">Arif Rahman</string>
+    <string name="make_pathasathi">Make PathaSathi</string>
+    <string name="share">Shared With Me</string>
+    <string name="stared">Stared</string>
+    <string name="recent_access">Recent Access</string>
+
+    <!--Navigation Drawer others options-->
+    <string name="others_activity">Others Activity</string>
+    <string name="offline">Offline</string>
+    <string name="upload">Upload</string>
+    <string name="log_out">Log Out</string>
+
 </resources>

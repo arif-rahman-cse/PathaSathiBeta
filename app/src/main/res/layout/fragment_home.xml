@@ -1,73 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:theme="@style/Theme.AppCompat.Light.NoActionBar"
     tools:context=".fragment.Home">
 
     <!-- TODO: Update blank fragment layout -->
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:background="@color/white">
+<!--        <androidx.appcompat.widget.Toolbar-->
+<!--            android:id="@+id/toolbar"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:background="@color/white">-->
 
-            <TextView
-                android:id="@+id/pathasathi_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="PATHASHATHI"
-                android:textColor="@color/green"
-                android:textSize="25dp" />
+<!--                <ImageView-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:src="@drawable/ic_toc_black_24dp"-->
+<!--                    android:contentDescription="@string/toolbar_menu"/>-->
 
-        </android.support.v7.widget.Toolbar>
+<!--                <TextView-->
+<!--                    android:id="@+id/pathasathi_title"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:textAlignment="center"-->
+<!--                    android:text="@string/patha_sathi"-->
+<!--                    android:textColor="@color/green"-->
+<!--                    android:textSize="25sp" />-->
 
-        <View
-            android:id="@+id/dashboard_shadow"
-            android:layout_width="match_parent"
-            android:layout_height="3dp"
-            android:layout_below="@id/toolbar"
-            android:background="@drawable/toolbar_dropshadow" />
+<!--        </androidx.appcompat.widget.Toolbar>-->
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="35dp"
-            android:layout_marginRight="20dp"
-            android:gravity="right|center"
-            android:orientation="horizontal">
+<!--        <View-->
+<!--            android:id="@+id/dashboard_shadow"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="3dp"-->
+<!--            android:layout_below="@id/toolbar"-->
+<!--            android:background="@drawable/toolbar_dropshadow" />-->
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_toc_black_24dp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="35dp"
-            android:layout_marginRight="20dp"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginLeft="20dp"
-                android:src="@drawable/ic_card_giftcard_black_24dp" />
-        </LinearLayout>
 
         <LinearLayout
             android:id="@+id/linear_layout1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/toolbar"
             android:layout_marginTop="40dp"
             android:weightSum="2">
 
@@ -80,8 +57,10 @@
                 android:layout_weight="1"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:clickable="true"
+                android:focusable="true"
                 android:gravity="center"
-                android:src="@drawable/ic_group_of_users_silhouette" />
+                android:src="@drawable/ic_group_of_users_silhouette"
+                android:contentDescription="@string/my_patha_sathi"/>
 
             <ImageView
                 android:id="@+id/current_location"
@@ -92,8 +71,10 @@
                 android:layout_weight="1"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:clickable="true"
+                android:focusable="true"
                 android:gravity="center"
-                android:src="@drawable/ic_my_location_black_24dp" />
+                android:src="@drawable/ic_my_location_black_24dp"
+                android:contentDescription="@string/current_location"/>
 
         </LinearLayout>
 
@@ -111,7 +92,7 @@
                 android:layout_gravity="center"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="My Pathasathi"
+                android:text="@string/my_patha_sathi"
                 android:textSize="20sp" />
 
             <TextView
@@ -121,7 +102,7 @@
                 android:layout_marginTop="5dp"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="Current Location"
+                android:text="@string/current_location"
                 android:textSize="20sp" />
 
         </LinearLayout>
@@ -168,8 +149,10 @@
                 android:layout_weight="1"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:clickable="true"
+                android:focusable="true"
                 android:gravity="center"
-                android:src="@drawable/ic_search" />
+                android:src="@drawable/ic_search"
+                android:contentDescription="@string/anyone_there"/>
 
 
             <ImageView
@@ -181,8 +164,10 @@
                 android:layout_weight="1"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:clickable="true"
+                android:focusable="true"
                 android:gravity="center"
-                android:src="@drawable/ic_alarm" />
+                android:src="@drawable/ic_alarm"
+                android:contentDescription="@string/help"/>
 
         </LinearLayout>
 
@@ -199,7 +184,7 @@
                 android:layout_gravity="center"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="Anyone There?"
+                android:text="@string/anyone_there"
                 android:textSize="20sp" />
 
             <TextView
@@ -208,7 +193,7 @@
                 android:layout_gravity="center"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="Help"
+                android:text="@string/help"
                 android:textSize="20sp" />
 
         </LinearLayout>
@@ -255,8 +240,10 @@
                 android:layout_weight="1"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:clickable="true"
+                android:focusable="true"
                 android:gravity="center"
-                android:src="@drawable/nation_emergancy" />
+                android:src="@drawable/nation_emergancy"
+                android:contentDescription="@string/emergency_call"/>
 
 
             <ImageView
@@ -268,8 +255,10 @@
                 android:layout_weight="1"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:clickable="true"
+                android:focusable="true"
                 android:gravity="center"
-                android:src="@drawable/safe" />
+                android:src="@drawable/safe"
+                android:contentDescription="@string/mark_as_a_safe"/>
 
         </LinearLayout>
 
@@ -287,7 +276,7 @@
                 android:layout_marginTop="-10dp"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="Call"
+                android:text="@string/emergency_call"
                 android:textSize="20sp" />
 
             <TextView
@@ -297,7 +286,7 @@
                 android:layout_marginTop="5dp"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="Mark as a Safe"
+                android:text="@string/mark_as_a_safe"
                 android:textSize="20sp" />
 
         </LinearLayout>
@@ -306,7 +295,6 @@
         <LinearLayout
             android:layout_width="2dp"
             android:layout_height="700dp"
-            android:layout_below="@id/toolbar"
             android:layout_centerInParent="true"
             android:orientation="vertical">
 

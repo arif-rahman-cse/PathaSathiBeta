@@ -15,6 +15,22 @@
       },
       "oauth_client": [
         {
+          "client_id": "75470973515-q253k1upvhn90j8qcnrervkpdij1ksvd.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.pathasathi",
+            "certificate_hash": "c2488a9559299716154c24466fbea8c0ac268919"
+          }
+        },
+        {
+          "client_id": "75470973515-5cjtjiav6ve33gac9ia0lqrqv06o5voo.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.pathasathi",
+            "certificate_hash": "937b295c619c75cc34d38b49f5075e98d7dbbfe6"
+          }
+        },
+        {
           "client_id": "75470973515-qg4c0dgonfqinsle1t1o61aodd1o6i9e.apps.googleusercontent.com",
           "client_type": 3
         }

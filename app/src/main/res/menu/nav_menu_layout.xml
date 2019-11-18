@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <group android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/make_pathasathi_id"
+            android:title="@string/make_pathasathi"
+            android:icon="@drawable/ic_make_pathasathi"/>
+
+        <item
+
+            android:id="@+id/sharedWithMeId"
+            android:title="@string/share" />
+
+        <item
+
+            android:id="@+id/staredId"
+            android:title="@string/stared" />
+
+        <item
+
+            android:id="@+id/recentId"
+            android:title="@string/recent_access" />
+
+
+    </group>
+
+    <item android:title="@string/others_activity">
+        <menu>
+
+            <item
+                android:id="@+id/offlineId"
+                android:title="@string/offline" />
+            <item
+                android:id="@+id/uploadId"
+                android:title="@string/upload" />
+            <item
+                android:id="@+id/log_out_id"
+                android:title="@string/log_out"
+                android:icon="@drawable/ic_exit_to_app"/>
+
+        </menu>
+
+    </item>
+
+</menu>

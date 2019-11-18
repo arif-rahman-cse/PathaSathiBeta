@@ -3,28 +3,23 @@
 
     <item
         android:id="@+id/home_id"
-        android:title="Home"
         android:icon="@drawable/ic_home_black_24dp"
-        />
+        android:title="@string/home" />
 
     <item
         android:id="@+id/profile_id"
-        android:title="Profile"
         android:icon="@drawable/ic_person_black_24dp"
-        />
+        android:title="@string/profile" />
     <item
         android:id="@+id/notification_id"
-        android:title="Notification"
         android:icon="@drawable/ic_notifications_black_24dp"
-        />
+        android:title="@string/notification" />
     <item
         android:id="@+id/myPathashati_id"
-        android:title="PathaSati"
         android:icon="@drawable/ic_group_of_users_silhouette"
-        />
+        android:title="@string/amar_pathasathi" />
     <item
         android:id="@+id/move_id"
-        android:title="Move"
         android:icon="@drawable/ic_directions_run_black_24dp"
-        />
+        android:title="@string/move" />
 </menu>
