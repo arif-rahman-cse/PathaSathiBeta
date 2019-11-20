@@ -121,7 +121,6 @@ public class MainActivity extends AppCompatActivity implements
                 return true;
 
             //Drawer navigation item
-
             case R.id.log_out_id:
                 logout();
                 return true;
