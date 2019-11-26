@@ -64,6 +64,7 @@ public class CurrentLocationActivity extends FragmentActivity implements OnMapRe
         }
     }
 
+    //-------------------------------------------- get device current location---------------------------//
     private void getDeviceLocation() {
 
         Log.d(TAG, "getDeviceLocation: Getting device Current Location");
@@ -92,6 +93,7 @@ public class CurrentLocationActivity extends FragmentActivity implements OnMapRe
         }
     }
 
+    //-----------------------------Move camera to user current location---------------------------------//
     private void moveCamera(LatLng latLng, float zoom, String my_location) {
         Log.d(TAG, "moveCamera: moving the camera to: lat: " + latLng.latitude + "lag: " + latLng.longitude);
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoom));
