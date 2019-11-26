@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">Patha Sathi</string>
+    <!--<string name="google_map_api">AIzaSyDNmG1zkcvzZyabwZng9ztDaWEWEVo7wnY</string>-->
     <string name="google_map_api">AIzaSyDNmG1zkcvzZyabwZng9ztDaWEWEVo7wnY</string>
 
     <!-- TODO: Remove or change this placeholder text -->
@@ -15,6 +16,11 @@
     <string name="patha_sathi">PATHASHATHI</string>
     <string name="instant_camera">Instant Camera</string>
     <string name="toolbar_menu">Toolbar Menu</string>
+
+    <!--    User current Location Activity Strings-->
+    <string name="title_location_permission">App need to Access Your Location</string>
+    <string name="text_location_permission">App need to Access Your Location</string>
+    <string name="ok">OK</string>
 
     <!-- Notification List String  -->
     <string-array name="notification_list">
