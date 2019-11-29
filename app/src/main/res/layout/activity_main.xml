@@ -27,9 +27,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-        </FrameLayout>
+            app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.navigation.NavigationView
             android:id="@+id/drawer_navigation_id"
@@ -37,9 +35,7 @@
             android:layout_height="match_parent"
             android:layout_gravity="start"
             app:menu="@menu/nav_menu_layout"
-            app:headerLayout="@layout/navigation_header">
-
-        </com.google.android.material.navigation.NavigationView>
+            app:headerLayout="@layout/navigation_header" />
 
 
 
