@@ -10,8 +10,11 @@ import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.pathasathi.R;
@@ -36,6 +39,9 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     //widgets
     private EditText mName, mEmail, mPassword, mConfirmPassword;
     private ProgressBar mProgressBar;
+    private Button registrationBtn;
+    private ImageView backButton;
+    private TextView title;
 
     //vars
     private FirebaseFirestore mDb;
@@ -46,12 +52,19 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         setContentView(R.layout.activity_register);
 
         mName = findViewById(R.id.input_name);
-        mEmail = (EditText) findViewById(R.id.input_email);
-        mPassword = (EditText) findViewById(R.id.input_password);
-        mConfirmPassword = (EditText) findViewById(R.id.input_confirm_password);
-        mProgressBar = (ProgressBar) findViewById(R.id.progressBar);
+        mEmail = findViewById(R.id.input_email);
+        mPassword = findViewById(R.id.input_password);
+        mConfirmPassword = findViewById(R.id.input_confirm_password);
+        mProgressBar = findViewById(R.id.progressBar);
+        registrationBtn = findViewById(R.id.btn_register);
+        backButton = findViewById(R.id.back_button);
+        title = findViewById(R.id.title_tv);
 
-        findViewById(R.id.btn_register).setOnClickListener(this);
+
+        title.setText(R.string.become_a_patha_sathi);
+
+        registrationBtn.setOnClickListener(this);
+        backButton.setOnClickListener(this);
 
         mDb = FirebaseFirestore.getInstance();
 
@@ -125,12 +138,14 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     //------------------------------- Hide and show progress bar -----------------------------------//
     private void showDialog() {
         mProgressBar.setVisibility(View.VISIBLE);
+        mProgressBar.setIndeterminate(true);
 
     }
 
     private void hideDialog() {
-        if (mProgressBar.getVisibility() == View.VISIBLE) {
+        if (mProgressBar.isIndeterminate()) {
             mProgressBar.setVisibility(View.INVISIBLE);
+            mProgressBar.setIndeterminate(false);
         }
     }
 
@@ -169,6 +184,10 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
                 hideSoftKeyboard();
                 break;
+            }
+
+            case R.id.back_button:{
+                startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
             }
         }
 

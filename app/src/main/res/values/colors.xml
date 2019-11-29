@@ -23,8 +23,9 @@
     <color name="light_black">#EEECEC</color>
 
     // Application Style color
-
     <color name="dim_white">#ACABAB</color>
+    <color name="dark_green">#66A218</color>
+    <color name="light_green">#98E03B</color>
 
 
 </resources>

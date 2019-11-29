@@ -5,10 +5,14 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentActivity;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.pathasathi.R;
@@ -23,7 +27,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 
-public class CurrentLocationActivity extends FragmentActivity implements OnMapReadyCallback {
+public class CurrentLocationActivity extends FragmentActivity implements OnMapReadyCallback, View.OnClickListener{
 
     private static final String TAG = "CurrentLocationActivity";
 
@@ -38,11 +42,20 @@ public class CurrentLocationActivity extends FragmentActivity implements OnMapRe
     private GoogleMap mMap;
     private Boolean mLocationPermissionGranted = false;
     private FusedLocationProviderClient mFusedLocationProviderClient;
+    private ImageView backButton;
+    private TextView title;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_current_location);
+
+        backButton = findViewById(R.id.back_button);
+        title = findViewById(R.id.title_tv);
+
+        title.setText(R.string.user_current_location_title);
+
+        backButton.setOnClickListener(this);
 
         getLocationPermission();
     }
@@ -74,7 +87,7 @@ public class CurrentLocationActivity extends FragmentActivity implements OnMapRe
         try {
             if (mLocationPermissionGranted) {
                 final Task<Location> locationResult = mFusedLocationProviderClient.getLastLocation();
-                locationResult.addOnSuccessListener(this, new OnSuccessListener<Location>() {
+                locationResult.addOnSuccessListener(this,  new OnSuccessListener<Location>() {
                     @Override
                     public void onSuccess(Location location) {
                         Log.d(TAG, "onSuccess:");
@@ -140,5 +153,12 @@ public class CurrentLocationActivity extends FragmentActivity implements OnMapRe
                 .findFragmentById(R.id.user_current_location);
         mapFragment.getMapAsync(this);
 
+    }
+
+    //---------------------------- Activity Listener ------------------------------------//
+    @Override
+    public void onClick(View v) {
+        startActivity(new Intent(CurrentLocationActivity.this, MainActivity.class));
+        finish();
     }
 }

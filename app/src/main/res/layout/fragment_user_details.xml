@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
+    android:scrollbars="none"
     tools:context=".fragment.UserDetails">
 
     <!-- TODO: Update blank fragment layout -->
@@ -15,15 +15,11 @@
         android:gravity="center_horizontal"
         android:orientation="vertical">
 
-        // Main Upper wrapper
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#E3D8EC"
             android:orientation="vertical">
-
-            // Upper part 1
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -34,7 +30,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@drawable/firstlayer"
-                    android:paddingLeft="20dp"
+                    android:paddingStart="20dp"
                     android:paddingTop="10dp">
 
                     <RelativeLayout
@@ -43,37 +39,38 @@
                         android:layout_height="wrap_content">
 
                         <de.hdodenhof.circleimageview.CircleImageView
-                            android:id="@+id/prifileImageId"
+                            android:id="@+id/profile_img_id"
                             android:layout_width="100dp"
                             android:layout_height="100dp"
-                            android:layout_gravity="left"
-                            android:layout_marginLeft="30dp"
+                            android:layout_gravity="start"
+                            android:layout_marginStart="30dp"
+                            android:layout_marginTop="25dp"
+                            android:layout_marginEnd="5dp"
                             android:layout_marginBottom="50dp"
                             android:background="@drawable/square"
-                            android:src="@drawable/profile"
-                            android:layout_marginTop="25dp"
-                            android:layout_marginRight="5dp" />
+                            android:src="@drawable/profile" />
 
                         <ImageView
-                            android:id="@+id/takePhotoId"
-                            android:layout_marginTop="13dp"
-                            android:layout_marginLeft="21dp"
-                            android:foregroundGravity="center"
+                            android:id="@+id/take_photo_btn_img"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginStart="21dp"
+                            android:layout_marginTop="13dp"
+                            android:foregroundGravity="center"
                             android:src="@drawable/ic_add_a_photo_black_24dp" />
 
                     </RelativeLayout>
 
                     <LinearLayout
-                        android:layout_toRightOf="@id/profileImageRelativeLayout"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_toEndOf="@id/profileImageRelativeLayout"
                         android:orientation="vertical"
-                        android:paddingTop="50dp"
-                        android:paddingLeft="20dp">
+                        android:paddingStart="20dp"
+                        android:layout_marginTop="50dp">
 
                         <TextView
+                            android:id="@+id/user_name_tv"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:fontFamily="serif"
@@ -83,6 +80,7 @@
                             android:textStyle="bold" />
 
                         <TextView
+                            android:id="@+id/user_designation_tv"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:fontFamily="serif"
@@ -102,14 +100,12 @@
 
         </LinearLayout>
 
-        // Main Edit Profile part
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="0dp"
-            android:orientation="horizontal"
-            >
+            android:orientation="horizontal">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -117,7 +113,8 @@
                 android:gravity="center"
                 android:orientation="horizontal">
 
-                <LinearLayout android:layout_width="match_parent"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="right"
                     android:orientation="horizontal"
@@ -125,7 +122,7 @@
                     android:paddingRight="15dp">
 
                     <ImageView
-                        android:id="@+id/editProfile"
+                        android:id="@+id/edit_profile_img"
                         android:layout_width="30dp"
                         android:layout_height="30dp"
                         android:background="@drawable/square"
@@ -135,7 +132,7 @@
                         android:visibility="visible" />
 
                     <ImageView
-                        android:id="@+id/saveEditProfile"
+                        android:id="@+id/save_profile_img"
                         android:layout_width="30dp"
                         android:layout_height="30dp"
                         android:layout_marginLeft="10dp"
@@ -153,8 +150,6 @@
         </LinearLayout>
 
 
-        // Start Main Lower Wrapper
-
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -165,10 +160,9 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical"
                 android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                android:paddingTop="0dp">
+                android:paddingTop="0dp"
+                android:paddingRight="10dp">
 
-                // Email field
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -182,21 +176,21 @@
                         android:orientation="horizontal">
 
                         <EditText
-                            android:id="@+id/emailFieldId"
+                            android:id="@+id/user_email_et"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="20dp"
+                            android:layout_marginStart="20dp"
                             android:backgroundTint="@color/transparent"
-                            android:textColor="#8F8F91"
-                            android:drawableLeft="@drawable/ic_email"
+                            android:drawableStart="@drawable/ic_email"
                             android:drawablePadding="12dp"
                             android:focusable="false"
-                            android:gravity="left"
-                            android:text="anikaakter@gmail.com"
-                            android:textSize="15sp"
+                            android:gravity="start"
+                            android:imeOptions="actionNext"
+                            android:inputType="textEmailAddress"
                             android:maxLines="1"
-                            android:inputType="text"
-                            android:imeOptions="actionNext"/>
+                            android:text="anikaakter@gmail.com"
+                            android:textColor="#8F8F91"
+                            android:textSize="15sp" />
 
 
                     </LinearLayout>
@@ -205,13 +199,12 @@
                 </LinearLayout>
 
 
-                // Separetor Line
-                <View android:layout_width="match_parent"
+                <View
+                    android:layout_width="match_parent"
                     android:layout_height="1px"
                     android:background="@color/primary_color3" />
 
 
-                // Mobile field
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -220,7 +213,8 @@
                     android:paddingTop="5dp"
                     android:paddingBottom="5dp">
 
-                    <EditText android:id="@+id/mobilefieldId"
+                    <EditText
+                        android:id="@+id/user_mobile_et"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="20dp"
@@ -229,24 +223,25 @@
                         android:drawablePadding="12dp"
                         android:focusable="false"
                         android:gravity="left"
+                        android:imeOptions="actionNext"
+                        android:inputType="text"
+                        android:maxLines="1"
                         android:text="+880 1955209050"
                         android:textColor="#8F8F91"
-                        android:textSize="15sp"
-                        android:maxLines="1"
-                        android:inputType="text"
-                        android:imeOptions="actionNext"/>
+                        android:textSize="15sp" />
 
 
                 </LinearLayout>
 
 
-                // Separetor Line
-                <View android:layout_width="match_parent"
+                <View
+                    android:layout_width="match_parent"
                     android:layout_height="1px"
                     android:background="@color/primary_color3" />
 
-                // PathaShathi Joined Day fields
-                <LinearLayout android:layout_width="match_parent"
+
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:orientation="horizontal"
@@ -255,7 +250,7 @@
 
 
                     <EditText
-                        android:id="@+id/pathshathiJointFieldId"
+                        android:id="@+id/user_joined_date_et"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="20dp"
@@ -264,23 +259,22 @@
                         android:drawablePadding="12dp"
                         android:focusable="false"
                         android:gravity="left"
-                        android:textColor="#8F8F91"
+                        android:imeOptions="actionNext"
+                        android:inputType="text"
+                        android:maxLines="1"
                         android:text="Pathshathi Joind : 02 Dec 2018"
-                        android:textSize="15sp"
-                        android:maxLines="1"
-                        android:inputType="text"
-                        android:imeOptions="actionNext"/>
+                        android:textColor="#8F8F91"
+                        android:textSize="15sp" />
 
                 </LinearLayout>
 
 
-                // Separetor Line
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1px"
                     android:background="@color/primary_color3" />
 
-                // Address field
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -290,66 +284,30 @@
                     android:paddingBottom="5dp">
 
                     <EditText
-                        android:id="@+id/addressFieldId"
+                        android:id="@+id/user_address_et"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dp"
+                        android:layout_marginStart="20dp"
                         android:background="@android:color/transparent"
-                        android:drawableLeft="@drawable/ic_add_location_black_24dp"
+                        android:drawableStart="@drawable/ic_add_location_black_24dp"
                         android:drawablePadding="12dp"
                         android:focusable="false"
                         android:gravity="left"
-                        android:textColor="#8F8F91"
+                        android:imeOptions="actionNext"
+                        android:inputType="text"
+                        android:maxLines="1"
                         android:text="Goaltaq, Dhakshinkhan."
-                        android:textSize="15sp"
-                        android:maxLines="1"
-                        android:inputType="text"
-                        android:imeOptions="actionNext"/>
-
-                </LinearLayout>
-
-
-                // Separator Line
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1px"
-                    android:background="@color/primary_color3" />
-
-                //City field
-                <LinearLayout android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:orientation="horizontal"
-                    android:paddingTop="5dp"
-                    android:paddingBottom="5dp">
-
-                    <EditText
-                        android:id="@+id/cityFieldId"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dp"
-                        android:background="@android:color/transparent"
-                        android:drawableLeft="@drawable/ic_my_location2"
-                        android:drawablePadding="12dp"
-                        android:focusable="false"
-                        android:gravity="left"
                         android:textColor="#8F8F91"
-                        android:text="Dhaka City"
-                        android:textSize="15sp"
-                        android:maxLines="1"
-                        android:inputType="text"
-                        android:imeOptions="actionNext"/>
-
+                        android:textSize="15sp" />
 
                 </LinearLayout>
 
-                // Separator Line
+
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1px"
                     android:background="@color/primary_color3" />
 
-                // Country field
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -359,7 +317,41 @@
                     android:paddingBottom="5dp">
 
                     <EditText
-                        android:id="@+id/countryFieldId"
+                        android:id="@+id/user_area_et"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:background="@android:color/transparent"
+                        android:drawableStart="@drawable/ic_my_location2"
+                        android:drawablePadding="12dp"
+                        android:focusable="false"
+                        android:gravity="left"
+                        android:imeOptions="actionNext"
+                        android:inputType="text"
+                        android:maxLines="1"
+                        android:text="Dhaka City"
+                        android:textColor="#8F8F91"
+                        android:textSize="15sp" />
+
+
+                </LinearLayout>
+
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:background="@color/primary_color3" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp">
+
+                    <EditText
+                        android:id="@+id/user_country_et"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="20dp"
@@ -368,24 +360,23 @@
                         android:drawablePadding="12dp"
                         android:focusable="false"
                         android:gravity="left"
+                        android:imeOptions="actionNext"
+                        android:inputType="text"
+                        android:maxLines="1"
                         android:text="Bangladesh"
                         android:textColor="#8F8F91"
-                        android:textSize="15sp"
-                        android:maxLines="1"
-                        android:inputType="text"
-                        android:imeOptions="actionNext"/>
+                        android:textSize="15sp" />
 
 
                 </LinearLayout>
 
 
-                // Separator Line
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1px"
                     android:background="@color/primary_color3" />
 
-                // Birth Day field
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -396,38 +387,36 @@
 
 
                     <EditText
-                        android:id="@+id/birthDayFieldId"
+                        android:id="@+id/user_birthday_et"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dp"
+                        android:layout_marginStart="20dp"
                         android:background="@android:color/transparent"
-                        android:drawableLeft="@drawable/ic_wb_sunny_black_24dp"
+                        android:drawableStart="@drawable/ic_wb_sunny_black_24dp"
                         android:drawablePadding="12dp"
                         android:focusable="false"
                         android:gravity="left"
-                        android:textColor="#8F8F91"
-                        android:text="Birth Day : 23 Dec, 1993"
-                        android:textSize="15sp"
-                        android:maxLines="1"
+                        android:imeOptions="actionDone"
                         android:inputType="text"
-                        android:imeOptions="actionDone" />
+                        android:maxLines="1"
+                        android:text="Birth Day : 23 Dec, 1993"
+                        android:textColor="#8F8F91"
+                        android:textSize="15sp" />
 
 
                 </LinearLayout>
 
-                // Separator Line
+
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1px"
                     android:background="@color/primary_color3" />
 
-
             </LinearLayout>
 
         </ScrollView>
-        // End Main Lower Wrapper
 
     </LinearLayout>
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

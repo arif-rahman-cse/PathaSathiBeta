@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Patha Sathi</string>
+    <string name="app_name">Patha Sathi </string>
     <!--<string name="google_map_api">AIzaSyDNmG1zkcvzZyabwZng9ztDaWEWEVo7wnY</string>-->
     <string name="google_map_api">AIzaSyDNmG1zkcvzZyabwZng9ztDaWEWEVo7wnY</string>
 
@@ -21,6 +21,7 @@
     <string name="title_location_permission">App need to Access Your Location</string>
     <string name="text_location_permission">App need to Access Your Location</string>
     <string name="ok">OK</string>
+    <string name="user_current_location_title">Current Location</string>
 
     <!-- Notification List String  -->
     <string-array name="notification_list">
@@ -69,7 +70,7 @@
     <string name="forgot_password">Forgot Password</string>
     <string name="sign_in">Sign In</string>
     <string name="tabian_consulting_logo">Tabian Consulting Logo</string>
-    <string name="pathasathi_registration">PathaSathi Registration</string>
+    <string name="become_a_patha_sathi">Become a PathaSathi</string>
     <string name="confirm_password">Confirm Password</string>
 
     <!-- Firestore Strings -->
@@ -101,5 +102,8 @@
     <string name="offline">Offline</string>
     <string name="upload">Upload</string>
     <string name="log_out">Log Out</string>
+
+    <!--  My PathaSathi Activity String  -->
+    <string name="user_name">Arif Rahman</string>
 
 </resources>
