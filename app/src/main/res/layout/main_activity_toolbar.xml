@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="?attr/actionBarSize"
+    android:background="@color/green">
+
+    <ImageView
+        android:id="@+id/expanded_menu_iv"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        app:srcCompat="@drawable/ic_menu_black"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:adjustViewBounds="true"
+        android:layout_marginStart="8dp"
+        android:padding="8dp"
+        android:clickable="true"
+        android:focusable="true"/>
+
+    <TextView
+        android:id="@+id/title_tv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:textColor="@color/white"
+        android:text="PathaSathi"
+        android:gravity="center"
+        android:textSize="20sp"
+        android:textStyle="bold"/>
+
+</RelativeLayout>

@@ -27,7 +27,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 
-public class CurrentLocationActivity extends FragmentActivity implements OnMapReadyCallback, View.OnClickListener{
+public class CurrentLocationActivity extends FragmentActivity implements OnMapReadyCallback, View.OnClickListener {
 
     private static final String TAG = "CurrentLocationActivity";
 
@@ -43,17 +43,13 @@ public class CurrentLocationActivity extends FragmentActivity implements OnMapRe
     private Boolean mLocationPermissionGranted = false;
     private FusedLocationProviderClient mFusedLocationProviderClient;
     private ImageView backButton;
-    private TextView title;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_current_location);
 
-        backButton = findViewById(R.id.back_button);
-        title = findViewById(R.id.title_tv);
-
-        title.setText(R.string.user_current_location_title);
+        backButton = findViewById(R.id.back_iv);
 
         backButton.setOnClickListener(this);
 
@@ -87,7 +83,7 @@ public class CurrentLocationActivity extends FragmentActivity implements OnMapRe
         try {
             if (mLocationPermissionGranted) {
                 final Task<Location> locationResult = mFusedLocationProviderClient.getLastLocation();
-                locationResult.addOnSuccessListener(this,  new OnSuccessListener<Location>() {
+                locationResult.addOnSuccessListener(this, new OnSuccessListener<Location>() {
                     @Override
                     public void onSuccess(Location location) {
                         Log.d(TAG, "onSuccess:");

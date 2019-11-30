@@ -18,7 +18,7 @@
     </style>
 
     <!-- MainActivity Theme  -->
-    <style name="MainActivityTheme" parent="Platform.MaterialComponents.Light">
+    <style name="MainActivityTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/green</item>
         <item name="colorPrimaryDark">@color/dark_green</item>

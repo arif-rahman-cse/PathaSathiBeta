@@ -1,39 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout 
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".fragment.Notification">
 
-    <!-- TODO: Update blank fragment layout -->
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/notification_toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Notification"
-            android:textSize="30sp"
-            android:layout_gravity="center"
-            android:textColor="@color/green"/>
-
-    </androidx.appcompat.widget.Toolbar>
-
-    <View
-        android:id="@+id/notification_underline"
-        android:layout_below="@id/notification_toolbar"
-        android:layout_width="match_parent"
-        android:layout_height=".5dp"
-        android:background="@color/green" />
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/notification_recycle_view"
-        android:layout_below="@id/notification_toolbar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        tools:listitem="@layout/notification_view">
 
     </androidx.recyclerview.widget.RecyclerView>
 

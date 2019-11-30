@@ -3,19 +3,22 @@ package com.example.pathasathi.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+
 import androidx.fragment.app.Fragment;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.example.pathasathi.R;
+import com.example.pathasathi.activity.AvailablePsActivity;
 import com.example.pathasathi.activity.CurrentLocationActivity;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class Home extends Fragment implements View.OnClickListener{
+public class Home extends Fragment implements View.OnClickListener {
     ImageView myPathasathi, currentLocation, anyOneThere, help, call, markAsAsafe;
 
 
@@ -33,15 +36,29 @@ public class Home extends Fragment implements View.OnClickListener{
 
         myPathasathi = view.findViewById(R.id.my_pathasati);
         currentLocation = view.findViewById(R.id.current_location);
+        anyOneThere = view.findViewById(R.id.anyone_there);
 
         currentLocation.setOnClickListener(this);
+        anyOneThere.setOnClickListener(this);
 
         return view;
     }
 
     @Override
     public void onClick(View v) {
-        startActivity(new Intent(getContext(), CurrentLocationActivity.class));
+
+        int id = v.getId();
+
+        switch (id) {
+            case R.id.current_location:
+                startActivity(new Intent(getContext(), CurrentLocationActivity.class));
+                break;
+
+            case R.id.anyone_there:
+                startActivity(new Intent(getContext(), AvailablePsActivity.class));
+                break;
+
+        }
 
     }
 }

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/user_dp"
+        android:layout_width="57dp"
+        android:layout_height="36dp"
+        app:civ_border_color="#fff"
+        android:layout_alignParentTop="true"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="3.5dp"
+        android:contentDescription="@null"
+        android:src="@drawable/arif" />
+
+    <RelativeLayout
+        android:layout_width="64dp"
+        android:layout_height="60dp"
+        android:backgroundTint="@color/green"
+        android:background="@drawable/ic_marker">
+
+        <TextView
+            android:text="Arif Rahman"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textSize="7sp"
+            android:layout_marginStart="10dp"
+            android:textColor="#000"
+            android:alpha="0.8"
+            android:id="@+id/name"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"/>
+
+    </RelativeLayout>
+
+</RelativeLayout>
