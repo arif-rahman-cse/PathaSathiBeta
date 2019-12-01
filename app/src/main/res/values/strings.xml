@@ -94,17 +94,26 @@
     <string name="close">Close</string>
     <string name="header_name">Arif Rahman</string>
     <string name="make_pathasathi">Make PathaSathi</string>
-    <string name="share">Shared With Me</string>
+    <string name="share">Share Location</string>
     <string name="stared">Stared</string>
     <string name="recent_access">Recent Access</string>
 
     <!--Navigation Drawer others options-->
     <string name="others_activity">Others Activity</string>
     <string name="offline">Offline</string>
-    <string name="upload">Upload</string>
+    <string name="setting">Setting</string>
     <string name="log_out">Log Out</string>
 
     <!--  My PathaSathi Activity String  -->
     <string name="user_name">Arif Rahman</string>
+
+    <!--Emergency Call Dialog String     -->
+    <string name="near_by_police">Call Near By Police</string>
+    <string name="near_by_fire_station">Call Near By Fire Station</string>
+    <string name="near_by_rab">Call Near By RAB</string>
+    <string name="near_by_ambulance">Call Near By Ambulance</string>
+    <string name="near_by_patha_sathi">Call Near By PathaSathi</string>
+    <string name="threepale_nine">999</string>
+    <string name="dismiss">Dismiss</string>
 
 </resources>

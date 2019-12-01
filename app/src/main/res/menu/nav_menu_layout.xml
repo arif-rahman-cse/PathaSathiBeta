@@ -11,8 +11,9 @@
 
         <item
 
-            android:id="@+id/sharedWithMeId"
-            android:title="@string/share" />
+            android:id="@+id/share_location_id"
+            android:title="@string/share"
+            android:icon="@drawable/ic_share_location"/>
 
         <item
 
@@ -34,8 +35,9 @@
                 android:id="@+id/offlineId"
                 android:title="@string/offline" />
             <item
-                android:id="@+id/uploadId"
-                android:title="@string/upload" />
+                android:id="@+id/setting_id"
+                android:title="@string/setting"
+                android:icon="@drawable/ic_settings"/>
             <item
                 android:id="@+id/log_out_id"
                 android:title="@string/log_out"
