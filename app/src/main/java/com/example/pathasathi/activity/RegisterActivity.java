@@ -1,14 +1,15 @@
 package com.example.pathasathi.activity;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -27,9 +28,11 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreSettings;
+import com.squareup.picasso.Picasso;
 
 import static android.text.TextUtils.isEmpty;
 import static com.example.pathasathi.util.Check.doStringsMatch;
+import static com.example.pathasathi.util.Config.PICK_IMAGE_REQUEST;
 
 public class RegisterActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -40,11 +43,12 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     private EditText mName, mEmail, mPassword, mConfirmPassword;
     private ProgressBar mProgressBar;
     private Button registrationBtn;
-    private ImageView backButton;
+    private ImageView backButton, addImage, profileImage;
     private TextView title;
 
     //vars
     private FirebaseFirestore mDb;
+    private Uri profileImageUri;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,11 +64,15 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         backButton = findViewById(R.id.back_button);
         title = findViewById(R.id.title_tv);
 
+        addImage = findViewById(R.id.add_profile_img_iv);
+        profileImage = findViewById(R.id.user_profile_img_iv);
+
 
         title.setText(R.string.become_a_patha_sathi);
 
         registrationBtn.setOnClickListener(this);
         backButton.setOnClickListener(this);
+        addImage.setOnClickListener(this);
 
         mDb = FirebaseFirestore.getInstance();
 
@@ -89,7 +97,8 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                             Users users = new Users();
                             users.setName(name);
                             users.setEmail(email);
-                            users.setUsername(name);
+                            users.setUsername(email);
+
                             //users.setUsername(email.substring(0, email.indexOf("@")));
                             users.setUser_id(FirebaseAuth.getInstance().getUid());
 
@@ -188,9 +197,36 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
             case R.id.back_button:{
                 startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
+                finish();
+            }
+
+            case R.id.add_profile_img_iv:{
+                Log.d(TAG, "Profile Image Add Button Clicked");
+                openFileChooser();
             }
         }
 
 
+    }
+
+    //-------------------------------- set image in image view -----------------------------------------------//
+    private void openFileChooser() {
+        Log.d(TAG, "openFileChooser Clicked: ");
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(intent, PICK_IMAGE_REQUEST);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK){
+
+            profileImageUri = data.getData();
+            Picasso.get().load(profileImageUri).into(profileImage);
+
+        }
     }
 }

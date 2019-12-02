@@ -132,6 +132,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
+                            Log.d(TAG, "signIn: onComplete called");
+                            if (task.isSuccessful()){
+                                Toast.makeText(LoginActivity.this, "Success!", Toast.LENGTH_SHORT).show();
+                            }
                             hideDialog();
 
                         }

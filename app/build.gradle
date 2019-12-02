@@ -49,4 +49,8 @@ dependencies {
 
     //Lotti
     implementation 'com.airbnb.android:lottie:3.2.2'
+
+    //Picasso
+    implementation 'com.squareup.picasso:picasso:2.71828'
+
 }

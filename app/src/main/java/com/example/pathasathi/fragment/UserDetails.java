@@ -88,10 +88,6 @@ public class UserDetails extends Fragment implements View.OnClickListener {
 
             Log.d(TAG, "Edit profile button Clicked");
 
-            editTextEmail.setFocusableInTouchMode(true);
-            editTextEmail.setFocusable(true);
-            editTextEmail.setSelection(editTextEmail.getText().length());
-
             editTextMobile.setFocusableInTouchMode(true);
             editTextMobile.setFocusable(true);
             editTextMobile.setSelection(editTextMobile.getText().length());
@@ -120,14 +116,13 @@ public class UserDetails extends Fragment implements View.OnClickListener {
             imageViewEmailEditSave.setVisibility(View.VISIBLE);
             imageViewProfileEdit.setVisibility(View.GONE);
 
-            Toast.makeText(getActivity(), "Edit Your Profile",
-                    Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "Edit Your Profile", Toast.LENGTH_SHORT).show();
+
         } else if (v.getId() == R.id.save_profile_img) {
             Log.d(TAG, "Save profile button Clicked");
 
             hideSoftKeyboard();
 
-            email = editTextEmail.getText().toString();
             mobile = editTextMobile.getText().toString();
             joindDate = editTextJoind.getText().toString();
             address = editTextAddress.getText().toString();
@@ -137,7 +132,6 @@ public class UserDetails extends Fragment implements View.OnClickListener {
 
             updateUserInfos(email, mobile, joindDate, address, city, country, birthday);
 
-            editTextEmail.setFocusable(false);
             editTextMobile.setFocusable(false);
             editTextJoind.setFocusable(false);
             editTextAddress.setFocusable(false);

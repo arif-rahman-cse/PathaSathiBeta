@@ -47,17 +47,17 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
+
         <com.google.android.material.button.MaterialButton
             android:id="@+id/email_sign_in_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
-            android:padding="16dp"
             android:text="@string/log_in"
             android:textColor="@color/white"
             android:textStyle="bold"
-            app:cornerRadius="8dp" />
-
+            app:cornerRadius="8dp"
+            android:padding="12dp"/>
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/link_register"
@@ -65,11 +65,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:padding="16dp"
             android:text="@string/register"
             android:textColor="@color/white"
             android:textStyle="bold"
-            app:cornerRadius="8dp" />
+            app:cornerRadius="8dp"
+            android:padding="12dp"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -97,12 +97,13 @@
 
 
         <ProgressBar
+            android:layout_marginTop="36dp"
             android:id="@+id/progressBar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="20dp"
-            android:visibility="invisible" />
+            android:gravity="bottom|center"
+            android:visibility="invisible"
+            style="?android:progressBarStyleSmall"/>
 
     </LinearLayout>
 

@@ -3,7 +3,7 @@ package com.example.pathasathi.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class Users implements Parcelable{
+public class Users implements Parcelable {
 
     private String name;
     private String email;
@@ -12,6 +12,7 @@ public class Users implements Parcelable{
     private String avatar;
 
     public Users(String name, String email, String user_id, String username, String avatar) {
+
         this.name = name;
         this.email = email;
         this.user_id = user_id;

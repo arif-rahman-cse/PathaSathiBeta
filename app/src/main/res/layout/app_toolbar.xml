@@ -25,7 +25,7 @@
         android:textColor="@color/white"
         tools:text="Title"
         android:gravity="center"
-        android:textSize="18sp"
-        android:textStyle="bold"/>
+        android:textAllCaps="false"
+        style="?textAppearanceHeadline6"/>
 
 </RelativeLayout>
