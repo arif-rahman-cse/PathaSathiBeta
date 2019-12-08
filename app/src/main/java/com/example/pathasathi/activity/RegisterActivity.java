@@ -18,6 +18,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.pathasathi.MySharedPrefarance;
 import com.example.pathasathi.R;
 import com.example.pathasathi.model.Users;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -43,7 +44,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     private EditText mName, mEmail, mPassword, mConfirmPassword;
     private ProgressBar mProgressBar;
     private Button registrationBtn;
-    private ImageView backButton, addImage, profileImage;
+    private ImageView backButton;
     private TextView title;
 
     //vars
@@ -64,15 +65,10 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         backButton = findViewById(R.id.back_button);
         title = findViewById(R.id.title_tv);
 
-        addImage = findViewById(R.id.add_profile_img_iv);
-        profileImage = findViewById(R.id.user_profile_img_iv);
-
-
         title.setText(R.string.become_a_patha_sathi);
 
         registrationBtn.setOnClickListener(this);
         backButton.setOnClickListener(this);
-        addImage.setOnClickListener(this);
 
         mDb = FirebaseFirestore.getInstance();
 
@@ -80,7 +76,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     }
 
     //----------------------------------Register new user --------------------------//
-    public void registerNewEmail(final String name, final String email, String password) {
+    public void registerNewEmail(final String name, final String email, final String password) {
 
         showDialog();
 
@@ -116,7 +112,15 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
                                     if (task.isSuccessful()) {
                                         Toast.makeText(RegisterActivity.this, "Success", Toast.LENGTH_SHORT).show();
+
+                                        //Set vale in SharedPrefarance
+                                        MySharedPrefarance mySharedPrefarance = MySharedPrefarance.getPrefarences(RegisterActivity.this);
+                                        mySharedPrefarance.setUserEmail(email);
+                                        mySharedPrefarance.setPassword(password);
+
+                                        //Got Login activity
                                         redirectLoginScreen();
+
                                     } else {
                                         View parentLayout = findViewById(android.R.id.content);
                                         Snackbar.make(parentLayout, "Something went wrong.", Snackbar.LENGTH_SHORT).show();
@@ -195,38 +199,13 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 break;
             }
 
-            case R.id.back_button:{
+            case R.id.back_button: {
                 startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
                 finish();
             }
-
-            case R.id.add_profile_img_iv:{
-                Log.d(TAG, "Profile Image Add Button Clicked");
-                openFileChooser();
-            }
         }
 
 
     }
 
-    //-------------------------------- set image in image view -----------------------------------------------//
-    private void openFileChooser() {
-        Log.d(TAG, "openFileChooser Clicked: ");
-        Intent intent = new Intent();
-        intent.setType("image/*");
-        intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(intent, PICK_IMAGE_REQUEST);
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if(requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK){
-
-            profileImageUri = data.getData();
-            Picasso.get().load(profileImageUri).into(profileImage);
-
-        }
-    }
 }

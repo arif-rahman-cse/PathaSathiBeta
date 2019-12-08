@@ -14,33 +14,13 @@
             android:id="@+id/registration_tb"
             layout="@layout/app_toolbar" />
 
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="20dp">
-
-            <ImageView
-                android:id="@+id/add_profile_img_iv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:srcCompat="@drawable/ic_add_a_photo_black_24dp" />
-
-            <ImageView
-                android:id="@+id/user_profile_img_iv"
-                android:layout_width="96dp"
-                android:layout_height="96dp"
-                android:adjustViewBounds="true"
-                android:background="@drawable/square"
-                app:srcCompat="@drawable/ic_person" />
-
-        </RelativeLayout>
-
 
         <LinearLayout
             android:id="@+id/relLayout1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
+            android:layout_marginTop="20dp"
             android:paddingStart="20dp"
             android:paddingEnd="20dp">
 

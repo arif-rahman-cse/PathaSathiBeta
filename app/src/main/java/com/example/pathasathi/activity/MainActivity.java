@@ -17,8 +17,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -44,7 +46,6 @@ public class MainActivity extends AppCompatActivity implements
     private DrawerLayout drawerLayout;
     private NavigationView drawerNavigationView;
     private ImageView expandedMenu;
-    private TextView userEmail, name;
 
     private UserDetails userDetails;
     private Home home;
@@ -63,7 +64,6 @@ public class MainActivity extends AppCompatActivity implements
         drawerLayout = findViewById(R.id.nav_drawer_id);
         bottomNavigationView = findViewById(R.id.bottom_navigation_id);
         drawerNavigationView = findViewById(R.id.drawer_navigation_id);
-
 
         //Create Object of Fragment
         userDetails = new UserDetails();
@@ -89,7 +89,6 @@ public class MainActivity extends AppCompatActivity implements
             @Override
             public void onClick(View v) {
                 drawerLayout.openDrawer(GravityCompat.START);
-                //get drawer data
                 getUserDrawerData();
             }
         });
@@ -97,12 +96,11 @@ public class MainActivity extends AppCompatActivity implements
 
     }
 
-
     //----------------------------------- get user drawer data from fire base -----------------------------------------//
     private void getUserDrawerData() {
         Log.d(TAG, "getUserDrawerData called:");
 
-        //drawer data
+        final TextView userEmail, name;
         userEmail = findViewById(R.id.user_email_tv);
         name = findViewById(R.id.name_drawer_tv);
 
@@ -119,7 +117,7 @@ public class MainActivity extends AppCompatActivity implements
                         if (documentSnapshot != null && documentSnapshot.exists()) {
 
                             Log.d(TAG, "getUserDrawerData: onComplete: " +
-                                    documentSnapshot.getString("name") +" \n" + documentSnapshot.getString("email"));
+                                    documentSnapshot.getString("name") + " \n" + documentSnapshot.getString("email"));
 
                             name.setText(documentSnapshot.getString("name"));
                             userEmail.setText(documentSnapshot.getString("email"));

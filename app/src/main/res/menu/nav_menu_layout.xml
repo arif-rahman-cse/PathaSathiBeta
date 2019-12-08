@@ -16,14 +16,14 @@
             android:icon="@drawable/ic_share_location"/>
 
         <item
-
-            android:id="@+id/staredId"
-            android:title="@string/stared" />
+            android:id="@+id/live_chat_id"
+            android:title="@string/live_chat"
+            android:icon="@drawable/ic_chat"/>
 
         <item
-
-            android:id="@+id/recentId"
-            android:title="@string/recent_access" />
+            android:id="@+id/recent_patha_sathi_id"
+            android:title="@string/recent_patha_sathi"
+            android:icon="@drawable/ic_recent_added"/>
 
 
     </group>
@@ -32,8 +32,9 @@
         <menu>
 
             <item
-                android:id="@+id/offlineId"
-                android:title="@string/offline" />
+                android:id="@+id/about_id"
+                android:title="@string/about"
+                android:icon="@drawable/ic_about"/>
             <item
                 android:id="@+id/setting_id"
                 android:title="@string/setting"

@@ -95,12 +95,12 @@
     <string name="header_name">Arif Rahman</string>
     <string name="make_pathasathi">Make PathaSathi</string>
     <string name="share">Share Location</string>
-    <string name="stared">Stared</string>
-    <string name="recent_access">Recent Access</string>
+    <string name="live_chat">Live Chat</string>
+    <string name="recent_patha_sathi">Recent PathaSathi</string>
 
     <!--Navigation Drawer others options-->
     <string name="others_activity">Others Activity</string>
-    <string name="offline">Offline</string>
+    <string name="about">About</string>
     <string name="setting">Setting</string>
     <string name="log_out">Log Out</string>
 
