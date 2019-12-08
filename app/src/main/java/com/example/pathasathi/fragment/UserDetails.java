@@ -8,6 +8,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.appcompat.app.AlertDialog;
 
@@ -18,9 +19,15 @@ import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.pathasathi.R;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -31,12 +38,15 @@ import static android.app.Activity.RESULT_OK;
 public class UserDetails extends Fragment implements View.OnClickListener {
     private static final String TAG = "UserDetails";
 
-    //Vars
+    //Wiz
     private EditText editTextEmail, editTextMobile, editTextJoind, editTextAddress, editTextCity, editTextCountry, editTextBirthDay;
     private ImageView imageViewProfileEdit, imageViewEmailEditSave, imageViewTakePhoto, imageViewProfileImage;
-    private CircleImageView profileCircleImageView;
+    private TextView userName;
+
     private static final int PICK_FROM_GALLERY = 0;
     private static final int PICK_FROM_CAMERA = 1;
+
+    //vars
     private String email;
     private String mobile;
     private String joindDate;
@@ -58,6 +68,8 @@ public class UserDetails extends Fragment implements View.OnClickListener {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_user_details, container, false);
 
+        userFirebaseFirestore = FirebaseFirestore.getInstance();
+
         // Find 4 image view editIconImage, saveIconImage, profileImage, ProfileImageShow.
         imageViewProfileEdit = view.findViewById(R.id.edit_profile_img);
         imageViewEmailEditSave = view.findViewById(R.id.save_profile_img);
@@ -73,12 +85,52 @@ public class UserDetails extends Fragment implements View.OnClickListener {
         editTextCountry = view.findViewById(R.id.user_country_et);
         editTextBirthDay = view.findViewById(R.id.user_birthday_et);
 
+        //User Name and designation
+        userName = view.findViewById(R.id.user_name_tv);
+
         // Set onclick listener on EditIcon, SaveIcon, TakePhotoIcon.
         imageViewProfileEdit.setOnClickListener(this);
         imageViewEmailEditSave.setOnClickListener(this);
         imageViewTakePhoto.setOnClickListener(this);
 
+        //Get All user information from FireStore
+        getUserData();
+
         return view;
+
+    }
+
+    private void getUserData() {
+        Log.d(TAG, "getUserData called:");
+
+        String userId = FirebaseAuth.getInstance().getUid();
+        Log.d(TAG, "getUserData called:" + userId);
+
+        if (userId != null) {
+            DocumentReference docRef = userFirebaseFirestore.collection("Users").document(userId);
+            docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                    Log.d(TAG, "getUserData called: onComplete");
+                    if (task.isSuccessful()) {
+                        DocumentSnapshot documentSnapshot = task.getResult();
+                        if (documentSnapshot != null && documentSnapshot.exists()) {
+
+                            Log.d(TAG, "getUserData: onComplete: " +
+                                    documentSnapshot.getString("name") + " " + documentSnapshot.getString("email"));
+
+                            userName.setText(documentSnapshot.getString("name"));
+                            editTextEmail.setText(documentSnapshot.getString("email"));
+                        } else {
+                            Log.d(TAG, "getUserData : onComplete : No document");
+                        }
+                    } else {
+                        Log.d(TAG, "getUserData called: Failed");
+                    }
+                }
+            });
+        }
+
 
     }
 
