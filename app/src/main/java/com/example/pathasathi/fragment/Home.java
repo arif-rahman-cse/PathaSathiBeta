@@ -13,6 +13,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,15 +24,27 @@ import android.widget.Toast;
 import com.example.pathasathi.R;
 import com.example.pathasathi.activity.AvailablePsActivity;
 import com.example.pathasathi.activity.CurrentLocationActivity;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.button.MaterialButton;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.Objects;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class Home extends Fragment implements View.OnClickListener {
+    private static final String TAG = "Home";
 
     private static final int REQUEST_CALL = 1;
     private ImageView myPathasathi, currentLocation, anyOneThere, help, call, markAsAsafe;
+
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
 
 
     public Home() {
@@ -117,19 +130,46 @@ public class Home extends Fragment implements View.OnClickListener {
 
     private void makePhoneCall() {
 
-        String number = "01624390843";
-        if (number.trim().length() > 0) {
+        final String number = "01624390843";
+        String zipCode = "1208";
 
-            if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-                ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.CALL_PHONE}, REQUEST_CALL);
-            } else {
-                String dial = "tel:" + number;
-                startActivity(new Intent(Intent.ACTION_CALL, Uri.parse(dial)));
+        DocumentReference docRef = db.collection("EmergencyNumber").document(zipCode);
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot dsf = task.getResult();
+
+                    if (dsf != null && dsf.exists()) {
+
+                        String num1 = dsf.getString("number1");
+                        String num2 = dsf.getString("number2");
+
+                        Log.d(TAG, "numbers: " + num1 + " " + num2);
+
+                        if (num1.trim().length() > 0) {
+
+                            if (ContextCompat.checkSelfPermission(Objects.requireNonNull(getContext()), Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                                ActivityCompat.requestPermissions(Objects.requireNonNull(getActivity()), new String[]{Manifest.permission.CALL_PHONE}, REQUEST_CALL);
+                            } else {
+                                String dial = "tel:" + num1;
+                                startActivity(new Intent(Intent.ACTION_CALL, Uri.parse(dial)));
+                            }
+
+                        } else {
+                            Toast.makeText(getContext(), "Enter Phone Number", Toast.LENGTH_SHORT).show();
+                        }
+
+
+                    } else {
+                        Log.d(TAG, "makePhoneCall : onComplete : No document");
+                    }
+
+                } else {
+                    Log.d(TAG, "makePhoneCall called : Failed");
+                }
             }
-
-        } else {
-            Toast.makeText(getContext(), "Enter Phone Number", Toast.LENGTH_SHORT).show();
-        }
+        });
     }
 
     @Override

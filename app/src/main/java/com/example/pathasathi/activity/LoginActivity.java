@@ -2,10 +2,18 @@ package com.example.pathasathi.activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
+import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
+import android.os.Looper;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
@@ -17,6 +25,12 @@ import android.widget.Toast;
 import com.example.pathasathi.R;
 import com.example.pathasathi.UserClient;
 import com.example.pathasathi.model.Users;
+import com.example.pathasathi.util.Config;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationCallback;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationResult;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
@@ -35,12 +49,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     private static final String TAG = "LoginActivity";
 
-    //Firebase
-    private FirebaseAuth.AuthStateListener mAuthListener;
-
     // widgets
     private EditText mEmail, mPassword;
     private ProgressBar mProgressBar;
+
+    //Vars
+    private FirebaseAuth.AuthStateListener mAuthListener;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,7 +88,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
 
-    // ----------------------------- Firebase setup ---------------------------------
+    // ----------------------------- Firebase setup ---------------------------------------------------//
 
     private void setupFirebaseAuth() {
         Log.d(TAG, "setupFirebaseAuth: started.");
@@ -133,7 +148,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             Log.d(TAG, "signIn: onComplete called");
-                            if (task.isSuccessful()){
+                            if (task.isSuccessful()) {
                                 Toast.makeText(LoginActivity.this, "Success!", Toast.LENGTH_SHORT).show();
                             }
                             hideDialog();
