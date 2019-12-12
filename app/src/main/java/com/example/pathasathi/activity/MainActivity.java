@@ -205,7 +205,8 @@ public class MainActivity extends AppCompatActivity implements
 
                                     Log.d(TAG, "getLastLocation: onComplete: "
                                             +address+"\t"+city+"\t"+state+"\t"+country+"\t"+postalCode+"\t"+knownName);
-                                    requestNewLocationData();
+
+                                    //requestNewLocationData();
                                 }
                             }
                         }

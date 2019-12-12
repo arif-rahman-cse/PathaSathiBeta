@@ -10,14 +10,17 @@ public class Users implements Parcelable {
     private String user_id;
     private String username;
     private String avatar;
+    private String phone_number;
 
-    public Users(String name, String email, String user_id, String username, String avatar) {
+
+    public Users(String name, String email, String user_id, String username, String avatar, String phone_number) {
 
         this.name = name;
         this.email = email;
         this.user_id = user_id;
         this.username = username;
         this.avatar = avatar;
+        this.phone_number = phone_number;
     }
 
     public Users() {
@@ -29,6 +32,7 @@ public class Users implements Parcelable {
         user_id = in.readString();
         username = in.readString();
         avatar = in.readString();
+        phone_number = in.readString();
     }
 
     public static final Creator<Users> CREATOR = new Creator<Users>() {
@@ -42,6 +46,14 @@ public class Users implements Parcelable {
             return new Users[size];
         }
     };
+
+    public String getPhone_number() {
+        return phone_number;
+    }
+
+    public void setPhone_number(String phone_number) {
+        this.phone_number = phone_number;
+    }
 
     public String getAvatar() {
         return avatar;
@@ -94,6 +106,7 @@ public class Users implements Parcelable {
                 ", user_id='" + user_id + '\'' +
                 ", username='" + username + '\'' +
                 ", avatar='" + avatar + '\'' +
+                ", phone_number='" + phone_number + '\'' +
                 '}';
     }
 
@@ -109,6 +122,7 @@ public class Users implements Parcelable {
         dest.writeString(user_id);
         dest.writeString(username);
         dest.writeString(avatar);
+        dest.writeString(phone_number);
     }
 }
 

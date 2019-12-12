@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.appcompat.app.AlertDialog;
 
@@ -23,12 +24,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.pathasathi.R;
+import com.example.pathasathi.model.Users;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -104,6 +108,7 @@ public class UserDetails extends Fragment implements View.OnClickListener {
         Log.d(TAG, "getUserData called:");
 
         String userId = FirebaseAuth.getInstance().getUid();
+
         Log.d(TAG, "getUserData called:" + userId);
 
         if (userId != null) {
@@ -182,8 +187,6 @@ public class UserDetails extends Fragment implements View.OnClickListener {
             country = editTextCountry.getText().toString();
             birthday = editTextBirthDay.getText().toString();
 
-            updateUserInfos(email, mobile, joindDate, address, city, country, birthday);
-
             editTextMobile.setFocusable(false);
             editTextJoind.setFocusable(false);
             editTextAddress.setFocusable(false);
@@ -192,6 +195,8 @@ public class UserDetails extends Fragment implements View.OnClickListener {
             editTextBirthDay.setFocusable(false);
             imageViewEmailEditSave.setVisibility(View.GONE);
             imageViewProfileEdit.setVisibility(View.VISIBLE);
+
+            updateUserInfos(mobile);
 
             Toast.makeText(getContext(), "Save Your Data", Toast.LENGTH_SHORT).show();
 
@@ -204,8 +209,22 @@ public class UserDetails extends Fragment implements View.OnClickListener {
 
     }
 
-    private void updateUserInfos(String email, String mobile, String joindDate, String address, String city, String country, String birthday) {
+    private void updateUserInfos(String mobile) {
         Log.d(TAG, "insertUserinfos called");
+
+        DocumentReference documentReference = userFirebaseFirestore.collection("Users").document(FirebaseAuth.getInstance().getUid());
+        documentReference.update("phone_number", mobile).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+
+                if(!task.isSuccessful()){
+                    Log.d(TAG, "updateUserInfos: onComplete: Failed");
+                }else {
+                    Log.d(TAG, "updateUserInfos: onComplete: Updated");
+                }
+            }
+        });
+
 
     }
 
