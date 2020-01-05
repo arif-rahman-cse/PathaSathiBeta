@@ -41,7 +41,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
 
     //widgets
-    private EditText mName, mEmail, mPassword, mConfirmPassword;
+    private EditText mName, mEmail, mPhone, mPassword, mConfirmPassword;
     private ProgressBar mProgressBar;
     private Button registrationBtn;
     private ImageView backButton;
@@ -58,6 +58,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
         mName = findViewById(R.id.input_name);
         mEmail = findViewById(R.id.input_email);
+        mPhone = findViewById(R.id.input_phone);
         mPassword = findViewById(R.id.input_password);
         mConfirmPassword = findViewById(R.id.input_confirm_password);
         mProgressBar = findViewById(R.id.progressBar);
@@ -76,7 +77,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     }
 
     //----------------------------------Register new user --------------------------//
-    public void registerNewEmail(final String name, final String email, final String password) {
+    public void registerNewEmail(final String name, final String email,final String phone, final String password) {
 
         showDialog();
 
@@ -94,6 +95,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                             users.setName(name);
                             users.setEmail(email);
                             users.setUsername(email);
+                            users.setPhone_number(phone);
 
                             //users.setUsername(email.substring(0, email.indexOf("@")));
                             users.setUser_id(FirebaseAuth.getInstance().getUid());
@@ -179,6 +181,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 //check for null valued EditText fields
                 if (!isEmpty(mName.getText().toString())
                         && !isEmpty(mEmail.getText().toString())
+                        && !isEmpty(mPhone.getText().toString())
                         && !isEmpty(mPassword.getText().toString())
                         && !isEmpty(mConfirmPassword.getText().toString())) {
 
@@ -186,7 +189,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                     if (doStringsMatch(mPassword.getText().toString(), mConfirmPassword.getText().toString())) {
 
                         //Initiate registration task
-                        registerNewEmail(mName.getText().toString(), mEmail.getText().toString(), mPassword.getText().toString());
+                        registerNewEmail(mName.getText().toString(), mEmail.getText().toString(), mPhone.getText().toString(), mPassword.getText().toString());
                     } else {
                         Toast.makeText(RegisterActivity.this, "Passwords do not Match", Toast.LENGTH_SHORT).show();
                     }
