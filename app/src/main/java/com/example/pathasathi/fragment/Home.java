@@ -21,6 +21,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.example.pathasathi.MySingleton;
 import com.example.pathasathi.R;
 import com.example.pathasathi.activity.AvailablePsActivity;
 import com.example.pathasathi.activity.CurrentLocationActivity;
@@ -32,7 +37,13 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.messaging.FirebaseMessaging;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 /**
@@ -40,6 +51,13 @@ import java.util.Objects;
  */
 public class Home extends Fragment implements View.OnClickListener {
     private static final String TAG = "Home";
+
+    final private String FCM_API = "https://fcm.googleapis.com/fcm/send";
+    final private String serverKey = "key=" + "AAAA7lzCl5U:APA91bF1S7cUxauyPEVZBdNsIf12mdL4Fu9JaMkRNXnt7FMAyWavQfGZBLLuCJGeyAEWGZarmjyEN525vyuRNn270bnbKyT_fL1lcRDp58hkHOEpKTeQ1cNGqCOPPdafspvANO2JMJlz";
+    final private String contentType = "application/json";
+    String NOTIFICATION_TITLE;
+    String NOTIFICATION_MESSAGE;
+    String TOPIC;
 
     private static final int REQUEST_CALL = 1;
     private ImageView myPathasathi, currentLocation, anyOneThere, help, call, markAsAsafe;
@@ -59,14 +77,18 @@ public class Home extends Fragment implements View.OnClickListener {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
+        FirebaseMessaging.getInstance().subscribeToTopic("/topics/userABC");
+
         myPathasathi = view.findViewById(R.id.my_pathasati);
         currentLocation = view.findViewById(R.id.current_location);
         anyOneThere = view.findViewById(R.id.anyone_there);
         call = view.findViewById(R.id.call);
+        help = view.findViewById(R.id.help);
 
         currentLocation.setOnClickListener(this);
         anyOneThere.setOnClickListener(this);
         call.setOnClickListener(this);
+        help.setOnClickListener(this);
 
         return view;
     }
@@ -77,6 +99,7 @@ public class Home extends Fragment implements View.OnClickListener {
         int id = v.getId();
 
         switch (id) {
+
             case R.id.current_location:
                 startActivity(new Intent(getContext(), CurrentLocationActivity.class));
                 break;
@@ -86,16 +109,65 @@ public class Home extends Fragment implements View.OnClickListener {
                 break;
 
             case R.id.call:
-                popUpDialog(v);
+                popUpCallDialog(v);
                 break;
+
+            case R.id.help:
+                notifyNearByUser();
+
 
         }
 
     }
 
-    private void popUpDialog(View view) {
+    private void notifyNearByUser() {
+        Log.d(TAG, "notifyNearByUser: Clicked");
+        //Push Notification title message
+        TOPIC = "/topics/userABC"; //topic has to match what the receiver subscribed to
+        NOTIFICATION_TITLE = "Help Me";
+        NOTIFICATION_MESSAGE = "I am in danger ⚠";
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        JSONObject notification = new JSONObject();
+        JSONObject notifcationBody = new JSONObject();
+        try {
+            notifcationBody.put("title", NOTIFICATION_TITLE);
+            notifcationBody.put("message", NOTIFICATION_MESSAGE);
+
+            notification.put("to", TOPIC);
+            notification.put("data", notifcationBody);
+        } catch (JSONException e) {
+            Log.e(TAG, "onCreate: " + e.getMessage());
+        }
+
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(FCM_API, notification,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        Log.i(TAG, "onResponse: " + response.toString());
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(getContext(), "Request error", Toast.LENGTH_LONG).show();
+                        Log.i(TAG, "onErrorResponse: Didn't work");
+                    }
+                }) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("Authorization", serverKey);
+                params.put("Content-Type", contentType);
+                return params;
+            }
+        };
+        MySingleton.getInstance(getContext()).addToRequestQueue(jsonObjectRequest);
+
+    }
+
+    private void popUpCallDialog(View view) {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
         builder.setCancelable(false);
         ViewGroup viewGroup = view.findViewById(android.R.id.content);
         View dialogView = LayoutInflater.from(view.getContext()).inflate(R.layout.emergency_call_dailog, viewGroup, false);

@@ -1,11 +1,7 @@
 <resources>
     <string name="app_name">Patha Sathi </string>
-    <!--<string name="google_map_api">AIzaSyDNmG1zkcvzZyabwZng9ztDaWEWEVo7wnY</string>-->
-    <!--    <string name="google_map_api">AIzaSyBID2MRpSx_ayWK_ide2s3pEBccDmjoUfk</string>-->
     <string name="google_map_api">AIzaSyDWom8PTLlfSbpF-IVj-zQExHBeW4YmAUU</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="cloud_message_server_key">AAAA7lzCl5U:APA91bF1S7cUxauyPEVZBdNsIf12mdL4Fu9JaMkRNXnt7FMAyWavQfGZBLLuCJGeyAEWGZarmjyEN525vyuRNn270bnbKyT_fL1lcRDp58hkHOEpKTeQ1cNGqCOPPdafspvANO2JMJlz</string>
 
     <!--    Home fragment String -->
     <string name="my_patha_sathi">My Pathasathi</string>
