@@ -9,6 +9,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
@@ -32,6 +33,7 @@ import com.example.pathasathi.activity.CurrentLocationActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
@@ -113,15 +115,16 @@ public class Home extends Fragment implements View.OnClickListener {
                 break;
 
             case R.id.help:
-                notifyNearByUser();
+                notifyNearByUser(v);
 
 
         }
 
     }
 
-    private void notifyNearByUser() {
+    private void notifyNearByUser(final View v) {
         Log.d(TAG, "notifyNearByUser: Clicked");
+
         //Push Notification title message
         TOPIC = "/topics/userABC"; //topic has to match what the receiver subscribed to
         NOTIFICATION_TITLE = "Help Me";
@@ -143,6 +146,8 @@ public class Home extends Fragment implements View.OnClickListener {
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
+                        Snackbar.make(getActivity().findViewById(android.R.id.content), "Nearby User Notified", Snackbar.LENGTH_LONG).show();
+                        //Toast.makeText(getContext(), "Nearby User Notified", Toast.LENGTH_SHORT).show();
                         Log.i(TAG, "onResponse: " + response.toString());
                     }
                 },
