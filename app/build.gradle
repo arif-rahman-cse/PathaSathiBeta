@@ -66,4 +66,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-messaging:20.1.0'
     implementation 'com.google.firebase:firebase-core:17.2.2'
 
+    //Alert Dialog
+    implementation 'com.github.f0ris.sweetalert:library:1.6.2'
+
 }

@@ -10,6 +10,8 @@ import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -54,6 +56,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.GeoPoint;
 
 import java.io.IOException;
 import java.util.List;
@@ -126,19 +129,18 @@ public class MainActivity extends AppCompatActivity implements
 
     }
 
-
     //------------------------------- Permission  for Google map  and getting User Location ----------------------------------------//
 
-    private boolean checkSelfPermissions(){
+    private boolean checkSelfPermissions() {
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED &&
-                ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED){
+                ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
 
             return true;
         }
         return false;
     }
 
-    private void requestPermissions(){
+    private void requestPermissions() {
         ActivityCompat.requestPermissions(
                 this,
                 new String[]{Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION},
@@ -150,15 +152,15 @@ public class MainActivity extends AppCompatActivity implements
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
-        if(requestCode == Config.LOCATION_PERMISSION_ID){
+        if (requestCode == Config.LOCATION_PERMISSION_ID) {
 
-            if(grantResults.length>0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 // Granted. Start getting the location information
             }
         }
     }
 
-    private boolean isLocationEnabled(){
+    private boolean isLocationEnabled() {
         LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) || locationManager.isProviderEnabled(
                 LocationManager.NETWORK_PROVIDER
@@ -166,7 +168,7 @@ public class MainActivity extends AppCompatActivity implements
     }
 
     @SuppressLint("MissingPermission")
-    private void getLastLocation(){
+    private void getLastLocation() {
         if (checkSelfPermissions()) {
             if (isLocationEnabled()) {
                 mFusedLocationClient.getLastLocation().addOnCompleteListener(
@@ -177,8 +179,10 @@ public class MainActivity extends AppCompatActivity implements
                                 if (location == null) {
                                     requestNewLocationData();
                                 } else {
-                                    Log.d(TAG, "getLastLocation: onComplete :"+location.getLatitude());
-                                    Log.d(TAG, "getLastLocation: onComplete :"+location.getLongitude());
+
+                                    insetLastKnownLocation(location.getLatitude(), location.getLongitude());
+                                    Log.d(TAG, "getLastLocation: onComplete :" + location.getLatitude());
+                                    Log.d(TAG, "getLastLocation: onComplete :" + location.getLongitude());
 
                                     // User Lat Long
                                     double latitude = location.getLatitude();
@@ -191,22 +195,21 @@ public class MainActivity extends AppCompatActivity implements
                                     try {
                                         // Here 1 represent max location result to returned, by documents it recommended 1 to 5
                                         addresses = geocoder.getFromLocation(latitude, longitude, 1);
+                                        // If any additional address line present than only, check with max available address lines by getMaxAddressLineIndex()
+                                        String address = addresses.get(0).getAddressLine(0);
+                                        String city = addresses.get(0).getLocality();
+                                        String state = addresses.get(0).getAdminArea();
+                                        String country = addresses.get(0).getCountryName();
+                                        String postalCode = addresses.get(0).getPostalCode();
+                                        String knownName = addresses.get(0).getFeatureName();
+                                        Log.d(TAG, "getLastLocation: onComplete: "
+                                                + address + "\t" + city + "\t" + state + "\t" + country + "\t" + postalCode + "\t" + knownName);
                                     } catch (IOException e) {
                                         e.printStackTrace();
                                     }
 
-                                    // If any additional address line present than only, check with max available address lines by getMaxAddressLineIndex()
-                                    String address = addresses.get(0).getAddressLine(0);
-                                    String city = addresses.get(0).getLocality();
-                                    String state = addresses.get(0).getAdminArea();
-                                    String country = addresses.get(0).getCountryName();
-                                    String postalCode = addresses.get(0).getPostalCode();
-                                    String knownName = addresses.get(0).getFeatureName();
-
-                                    Log.d(TAG, "getLastLocation: onComplete: "
-                                            +address+"\t"+city+"\t"+state+"\t"+country+"\t"+postalCode+"\t"+knownName);
-
-                                    //requestNewLocationData();
+                                    //Request for update location  5 to 10 sec
+                                    requestNewLocationData();
                                 }
                             }
                         }
@@ -223,11 +226,11 @@ public class MainActivity extends AppCompatActivity implements
 
 
     @SuppressLint("MissingPermission")
-    private void requestNewLocationData(){
+    private void requestNewLocationData() {
 
         LocationRequest mLocationRequest = new LocationRequest();
         mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-        mLocationRequest.setInterval(1000);
+        mLocationRequest.setInterval(10 * 1000);
         mLocationRequest.setFastestInterval(5000);
         //mLocationRequest.setNumUpdates(1);
 
@@ -241,11 +244,32 @@ public class MainActivity extends AppCompatActivity implements
         public void onLocationResult(LocationResult locationResult) {
             Location mLastLocation = locationResult.getLastLocation();
 
-            Log.d(TAG, "requestNewLocationData: onLocationResult :"+mLastLocation.getLatitude());
-            Log.d(TAG, "requestNewLocationData: onLocationResult :"+mLastLocation.getLongitude());
+            insetLastKnownLocation(mLastLocation.getLatitude(), mLastLocation.getLongitude());
+            Log.d(TAG, "requestNewLocationData: onLocationResult :" + mLastLocation.getLatitude());
+            Log.d(TAG, "requestNewLocationData: onLocationResult :" + mLastLocation.getLongitude());
         }
     };
 
+    private void insetLastKnownLocation(double latitude, double longitude) {
+        GeoPoint geoPoint = new GeoPoint(latitude, longitude);
+        String userId = FirebaseAuth.getInstance().getUid();
+        Log.d(TAG, "insetLastKnownLocation: User ID: " + userId);
+        DocumentReference documentReference = db.collection("Users").document(userId);
+        documentReference.update("LatLong", geoPoint)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Log.d(TAG, "onSuccess: Location Updated");
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.d(TAG, "onFailure: location update failed");
+                    }
+                });
+
+    }
 
     //----------------------------------- get user drawer data from fire base -----------------------------------------//
     private void getUserDrawerData() {

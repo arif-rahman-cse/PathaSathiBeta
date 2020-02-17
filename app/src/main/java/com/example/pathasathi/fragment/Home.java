@@ -30,6 +30,7 @@ import com.example.pathasathi.MySingleton;
 import com.example.pathasathi.R;
 import com.example.pathasathi.activity.AvailablePsActivity;
 import com.example.pathasathi.activity.CurrentLocationActivity;
+import com.example.pathasathi.util.AppUtils;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.button.MaterialButton;
@@ -86,11 +87,14 @@ public class Home extends Fragment implements View.OnClickListener {
         anyOneThere = view.findViewById(R.id.anyone_there);
         call = view.findViewById(R.id.call);
         help = view.findViewById(R.id.help);
+        markAsAsafe = view.findViewById(R.id.mark_as_a_safe);
 
         currentLocation.setOnClickListener(this);
         anyOneThere.setOnClickListener(this);
         call.setOnClickListener(this);
         help.setOnClickListener(this);
+        myPathasathi.setOnClickListener(this);
+        markAsAsafe.setOnClickListener(this);
 
         return view;
     }
@@ -116,6 +120,17 @@ public class Home extends Fragment implements View.OnClickListener {
 
             case R.id.help:
                 notifyNearByUser(v);
+                break;
+
+            case R.id.my_pathasati:
+                Snackbar.make(getActivity().findViewById(android.R.id.content),
+                        "Under Development..", Snackbar.LENGTH_LONG).show();
+                break;
+
+            case R.id.mark_as_a_safe:
+                Snackbar.make(getActivity().findViewById(android.R.id.content),
+                        "Under Development.", Snackbar.LENGTH_LONG).show();
+                break;
 
 
         }
@@ -124,6 +139,7 @@ public class Home extends Fragment implements View.OnClickListener {
 
     private void notifyNearByUser(final View v) {
         Log.d(TAG, "notifyNearByUser: Clicked");
+        AppUtils.showProgress(getContext());
 
         //Push Notification title message
         TOPIC = "/topics/userABC"; //topic has to match what the receiver subscribed to
@@ -139,6 +155,7 @@ public class Home extends Fragment implements View.OnClickListener {
             notification.put("to", TOPIC);
             notification.put("data", notifcationBody);
         } catch (JSONException e) {
+            AppUtils.hideProgress();
             Log.e(TAG, "onCreate: " + e.getMessage());
         }
 
@@ -146,6 +163,7 @@ public class Home extends Fragment implements View.OnClickListener {
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
+                        AppUtils.hideProgress();
                         Snackbar.make(getActivity().findViewById(android.R.id.content), "Nearby User Notified", Snackbar.LENGTH_LONG).show();
                         //Toast.makeText(getContext(), "Nearby User Notified", Toast.LENGTH_SHORT).show();
                         Log.i(TAG, "onResponse: " + response.toString());
@@ -154,6 +172,7 @@ public class Home extends Fragment implements View.OnClickListener {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
+                        AppUtils.hideProgress();
                         Toast.makeText(getContext(), "Request error", Toast.LENGTH_LONG).show();
                         Log.i(TAG, "onErrorResponse: Didn't work");
                     }
