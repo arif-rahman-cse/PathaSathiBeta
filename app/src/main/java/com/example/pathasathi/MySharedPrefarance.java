@@ -57,7 +57,7 @@ public class MySharedPrefarance {
     }
 
     public void setUserLastLong(String lastLong) {
-        editor.putString(Config.LATITUDE, lastLong);
+        editor.putString(Config.LONGITUDE, lastLong);
         editor.apply();
     }
 

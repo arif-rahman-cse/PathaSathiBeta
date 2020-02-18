@@ -61,6 +61,8 @@ public class Home extends Fragment implements View.OnClickListener {
     String NOTIFICATION_TITLE;
     String NOTIFICATION_MESSAGE;
     String TOPIC;
+    double lat, lng;
+
 
     private static final int REQUEST_CALL = 1;
     private ImageView myPathasathi, currentLocation, anyOneThere, help, call, markAsAsafe;
@@ -119,6 +121,7 @@ public class Home extends Fragment implements View.OnClickListener {
                 break;
 
             case R.id.help:
+
                 notifyNearByUser(v);
                 break;
 
@@ -147,13 +150,14 @@ public class Home extends Fragment implements View.OnClickListener {
         NOTIFICATION_MESSAGE = "I am in danger ⚠";
 
         JSONObject notification = new JSONObject();
-        JSONObject notifcationBody = new JSONObject();
+        JSONObject notificationBody = new JSONObject();
         try {
-            notifcationBody.put("title", NOTIFICATION_TITLE);
-            notifcationBody.put("message", NOTIFICATION_MESSAGE);
+            notificationBody.put("title", NOTIFICATION_TITLE);
+            notificationBody.put("message", NOTIFICATION_MESSAGE);
+            //notificationBody.put("latLong", );
 
             notification.put("to", TOPIC);
-            notification.put("data", notifcationBody);
+            notification.put("data", notificationBody);
         } catch (JSONException e) {
             AppUtils.hideProgress();
             Log.e(TAG, "onCreate: " + e.getMessage());

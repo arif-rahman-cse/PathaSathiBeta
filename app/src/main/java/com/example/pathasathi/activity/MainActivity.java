@@ -2,6 +2,7 @@ package com.example.pathasathi.activity;
 
 import androidx.annotation.NonNull;
 
+import com.example.pathasathi.MySharedPrefarance;
 import com.example.pathasathi.model.Users;
 import com.example.pathasathi.util.Config;
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -82,11 +83,16 @@ public class MainActivity extends AppCompatActivity implements
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private FusedLocationProviderClient mFusedLocationClient;
     private List<Address> addresses;
+    private String userId;
+    private MySharedPrefarance mySharedPrefarance;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        userId = FirebaseAuth.getInstance().getUid();
+        mySharedPrefarance = MySharedPrefarance.getPrefarences(MainActivity.this);
 
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
 
@@ -180,7 +186,12 @@ public class MainActivity extends AppCompatActivity implements
                                     requestNewLocationData();
                                 } else {
 
-                                    insetLastKnownLocation(location.getLatitude(), location.getLongitude());
+                                    if (userId != null) {
+                                        //Update user location to shared preference
+                                        updateLastLocationToPreference(String.valueOf(location.getLatitude()), String.valueOf(location.getLongitude()));
+                                        //Update user location to fire store
+                                        updateLastKnownLocation(location.getLatitude(), location.getLongitude());
+                                    }
                                     Log.d(TAG, "getLastLocation: onComplete :" + location.getLatitude());
                                     Log.d(TAG, "getLastLocation: onComplete :" + location.getLongitude());
 
@@ -244,16 +255,33 @@ public class MainActivity extends AppCompatActivity implements
         public void onLocationResult(LocationResult locationResult) {
             Location mLastLocation = locationResult.getLastLocation();
 
-            insetLastKnownLocation(mLastLocation.getLatitude(), mLastLocation.getLongitude());
+            if (userId != null) {
+                //Update user location to shared preference
+                updateLastLocationToPreference(String.valueOf(mLastLocation.getLatitude()), String.valueOf(mLastLocation.getLongitude()));
+                //Update user location to fire store
+                updateLastKnownLocation(mLastLocation.getLatitude(), mLastLocation.getLongitude());
+            }
+
             Log.d(TAG, "requestNewLocationData: onLocationResult :" + mLastLocation.getLatitude());
             Log.d(TAG, "requestNewLocationData: onLocationResult :" + mLastLocation.getLongitude());
         }
     };
 
-    private void insetLastKnownLocation(double latitude, double longitude) {
+
+    private void updateLastLocationToPreference(String lat, String lng) {
+
+        //Set lat long in Shared Preference
+        mySharedPrefarance.setUserLastLat(lat);
+        mySharedPrefarance.setUserLastLong(lng);
+
+        Log.d(TAG, "updateLastLocationToPreference: Lat: " + mySharedPrefarance.getLastLat());
+        Log.d(TAG, "updateLastLocationToPreference: Lng: " + mySharedPrefarance.getLastLong());
+
+    }
+
+    private void updateLastKnownLocation(double latitude, double longitude) {
         GeoPoint geoPoint = new GeoPoint(latitude, longitude);
-        String userId = FirebaseAuth.getInstance().getUid();
-        Log.d(TAG, "insetLastKnownLocation: User ID: " + userId);
+        Log.d(TAG, "updateLastKnownLocation: User ID: " + userId);
         DocumentReference documentReference = db.collection("Users").document(userId);
         documentReference.update("LatLong", geoPoint)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {

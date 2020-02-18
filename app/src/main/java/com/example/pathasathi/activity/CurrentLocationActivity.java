@@ -43,14 +43,19 @@ public class CurrentLocationActivity extends FragmentActivity implements OnMapRe
     private Boolean mLocationPermissionGranted = false;
     private FusedLocationProviderClient mFusedLocationProviderClient;
     private ImageView backButton;
+    private String victim;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_current_location);
 
-        backButton = findViewById(R.id.back_iv);
+        Intent intent = getIntent();
+        victim = intent.getStringExtra("VictimLocation");
+        Log.d(TAG, "onCreate: Victim Location: " + victim);
 
+
+        backButton = findViewById(R.id.back_iv);
         backButton.setOnClickListener(this);
 
         getLocationPermission();
@@ -66,6 +71,8 @@ public class CurrentLocationActivity extends FragmentActivity implements OnMapRe
         // Add a marker in my location and move the camera
         if (mLocationPermissionGranted) {
             Log.d(TAG, "onMapReady : getDeviceLocation method is calling");
+
+
             getDeviceLocation();
             mMap.setMyLocationEnabled(true);
             mMap.getUiSettings().setMyLocationButtonEnabled(true);
