@@ -39,8 +39,17 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
     @Override
     public void onMessageReceived(@NonNull RemoteMessage remoteMessage) {
+        String lat, lng;
+        lat = remoteMessage.getData().get("lat");
+        lng = remoteMessage.getData().get("lng");
+
+        Log.d(TAG, "onMessageReceived: Lat: " + lat);
+        Log.d(TAG, "onMessageReceived: Lng: " + lng);
+
         final Intent intent = new Intent(this, CurrentLocationActivity.class);
-        intent.putExtra("VictimLocation","victim_location");
+        intent.putExtra("VictimLat", lat);
+        intent.putExtra("VictimLng", lng);
+        intent.putExtra("Victim", "VictimKey");
 
         NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         int notificationID = new Random().nextInt(3000);

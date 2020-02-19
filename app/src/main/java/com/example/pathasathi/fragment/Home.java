@@ -26,10 +26,12 @@ import com.android.volley.AuthFailureError;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.example.pathasathi.MySharedPrefarance;
 import com.example.pathasathi.MySingleton;
 import com.example.pathasathi.R;
 import com.example.pathasathi.activity.AvailablePsActivity;
 import com.example.pathasathi.activity.CurrentLocationActivity;
+import com.example.pathasathi.activity.MainActivity;
 import com.example.pathasathi.util.AppUtils;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -61,7 +63,8 @@ public class Home extends Fragment implements View.OnClickListener {
     String NOTIFICATION_TITLE;
     String NOTIFICATION_MESSAGE;
     String TOPIC;
-    double lat, lng;
+    private MySharedPrefarance mySharedPrefarance;
+    String lat, lng;
 
 
     private static final int REQUEST_CALL = 1;
@@ -82,6 +85,7 @@ public class Home extends Fragment implements View.OnClickListener {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
+        mySharedPrefarance = MySharedPrefarance.getPrefarences(getContext());
         FirebaseMessaging.getInstance().subscribeToTopic("/topics/userABC");
 
         myPathasathi = view.findViewById(R.id.my_pathasati);
@@ -148,13 +152,21 @@ public class Home extends Fragment implements View.OnClickListener {
         TOPIC = "/topics/userABC"; //topic has to match what the receiver subscribed to
         NOTIFICATION_TITLE = "Help Me";
         NOTIFICATION_MESSAGE = "I am in danger ⚠";
+        lat = mySharedPrefarance.getLastLat();
+        lng = mySharedPrefarance.getLastLong();
+
+        Log.d(TAG, "notifyNearByUser: Lat: "+ lat);
+        Log.d(TAG, "notifyNearByUser: Lat: "+ lng);
+
 
         JSONObject notification = new JSONObject();
         JSONObject notificationBody = new JSONObject();
         try {
             notificationBody.put("title", NOTIFICATION_TITLE);
             notificationBody.put("message", NOTIFICATION_MESSAGE);
-            //notificationBody.put("latLong", );
+            notificationBody.put("lat", lat);
+            notificationBody.put("lng", lng);
+
 
             notification.put("to", TOPIC);
             notification.put("data", notificationBody);
