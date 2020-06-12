@@ -224,6 +224,7 @@ public class Home extends Fragment implements View.OnClickListener {
 
                         Log.d(TAG, "numbers: " + num1 + " " + num2);
 
+                        assert num1 != null;
                         if (num1.trim().length() > 0) {
 
                             if (ContextCompat.checkSelfPermission(Objects.requireNonNull(getContext()), Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
