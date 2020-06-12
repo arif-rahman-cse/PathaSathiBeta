@@ -8,12 +8,13 @@
     <ImageView
         android:id="@+id/expanded_menu_iv"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         app:srcCompat="@drawable/ic_menu_black"
         android:background="?attr/selectableItemBackgroundBorderless"
         android:adjustViewBounds="true"
+        android:layout_centerVertical="true"
         android:layout_marginStart="8dp"
-        android:padding="8dp"
+        android:padding="16dp"
         android:clickable="true"
         android:focusable="true"/>
 

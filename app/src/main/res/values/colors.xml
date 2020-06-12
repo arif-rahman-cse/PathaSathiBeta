@@ -27,5 +27,10 @@
     <color name="dark_green">#66A218</color>
     <color name="light_green">#98E03B</color>
 
+    //Chat room colour
+    <color name="blue2">#0033cc</color>
+    <color name="green1">#29CF40</color>
+    <color name="grey">#c3c3c3 </color>
+
 
 </resources>

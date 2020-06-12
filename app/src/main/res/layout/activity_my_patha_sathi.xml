@@ -6,14 +6,18 @@
     android:layout_height="match_parent"
     tools:context=".activity.MyPathaSathi">
 
+    <include
+        android:id="@+id/tool_bar"
+        layout="@layout/app_toolbar" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/my_pathasati_rv"
-        android:padding="8dp"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:padding="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:listitem="@layout/my_patha_sathi_item"/>
+        tools:listitem="@layout/my_patha_sathi_item"
+        app:layout_constraintTop_toBottomOf="@id/tool_bar"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

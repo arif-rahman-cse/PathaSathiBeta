@@ -6,7 +6,7 @@
 
         <item
             android:id="@+id/make_pathasathi_id"
-            android:checked="true"
+            android:checked="false"
             android:icon="@drawable/ic_make_pathasathi"
             android:title="@string/make_pathasathi" />
 

@@ -37,6 +37,7 @@ import android.os.Bundle;
 import android.os.Looper;
 import android.provider.Settings;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -127,13 +128,14 @@ public class MainActivity extends AppCompatActivity implements
         expandedMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                drawerLayout.openDrawer(GravityCompat.START);
+                openDrawer();
                 getUserDrawerData();
             }
         });
 
 
     }
+
 
     //------------------------------- Permission  for Google map  and getting User Location ----------------------------------------//
 
@@ -380,11 +382,25 @@ public class MainActivity extends AppCompatActivity implements
 
             case R.id.make_pathasathi_id:
                 startActivity(new Intent(MainActivity.this, MakePathasathi.class));
+                closeDrawer();
+                return true;
+
+            case R.id.live_chat_id:
+                startActivity(new Intent(MainActivity.this, LiveChatActivity.class));
+                closeDrawer();
                 return true;
 
             default:
                 return false;
         }
+    }
+
+    private void closeDrawer() {
+        drawerLayout.closeDrawer(GravityCompat.START);
+    }
+
+    private void openDrawer() {
+        drawerLayout.openDrawer(GravityCompat.START);
     }
 
     private void logout() {
