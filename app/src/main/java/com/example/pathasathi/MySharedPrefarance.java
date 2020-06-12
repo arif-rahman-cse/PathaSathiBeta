@@ -38,12 +38,31 @@ public class MySharedPrefarance {
         return sharedPreferences.getString(Config.USER_EMAIL, "UserName Not Found!");
     }
 
-    public void setPassword(String password){
+    public void setPassword(String password) {
         editor.putString(Config.PASSWORD, password);
         editor.apply();
     }
 
-    public String getPassword(){
+    public String getPassword() {
         return sharedPreferences.getString(Config.PASSWORD, "password not found");
     }
+
+    public void setUserLastLat(String lastLat) {
+        editor.putString(Config.LATITUDE, lastLat);
+        editor.apply();
+    }
+
+    public String getLastLat() {
+        return sharedPreferences.getString(Config.LATITUDE, "0.0");
+    }
+
+    public void setUserLastLong(String lastLong) {
+        editor.putString(Config.LONGITUDE, lastLong);
+        editor.apply();
+    }
+
+    public String getLastLong() {
+        return sharedPreferences.getString(Config.LONGITUDE, "0.0");
+    }
+
 }

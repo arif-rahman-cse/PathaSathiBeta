@@ -31,5 +31,14 @@
 
     </LinearLayout>
 
+    <com.google.android.material.button.MaterialButton
+        android:visibility="invisible"
+        android:id="@+id/see_direction"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="See Direction"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"/>
+
 
 </RelativeLayout>

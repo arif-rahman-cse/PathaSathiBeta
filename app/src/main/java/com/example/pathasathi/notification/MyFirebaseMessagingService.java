@@ -19,6 +19,7 @@ import androidx.core.app.NotificationCompat;
 
 import com.example.pathasathi.R;
 import com.example.pathasathi.activity.CurrentLocationActivity;
+import com.example.pathasathi.activity.MainActivity;
 
 import java.util.Random;
 
@@ -37,8 +38,19 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     }
 
     @Override
-    public void onMessageReceived(RemoteMessage remoteMessage) {
+    public void onMessageReceived(@NonNull RemoteMessage remoteMessage) {
+        String lat, lng;
+        lat = remoteMessage.getData().get("lat");
+        lng = remoteMessage.getData().get("lng");
+
+        Log.d(TAG, "onMessageReceived: Lat: " + lat);
+        Log.d(TAG, "onMessageReceived: Lng: " + lng);
+
         final Intent intent = new Intent(this, CurrentLocationActivity.class);
+        intent.putExtra("VictimLat", lat);
+        intent.putExtra("VictimLng", lng);
+        intent.putExtra("Victim", "VictimKey");
+
         NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         int notificationID = new Random().nextInt(3000);
 

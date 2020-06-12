@@ -8,9 +8,24 @@
         android:id="@+id/email_login_form"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center"
         android:orientation="vertical"
         android:padding="20dp">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_width="96dp"
+            android:layout_height="96dp"
+            android:src="@drawable/logo"
+            app:civ_border_color="@color/light_black"
+            app:civ_border_width="2dp"
+            android:layout_gravity="center"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/app_name"
+            android:layout_gravity="center"
+            android:textSize="18sp"
+            android:textColor="@color/green"/>
 
         <com.google.android.material.textfield.TextInputLayout
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -84,14 +99,18 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginEnd="5dp"
-                app:srcCompat="@drawable/ic_google" />
+                app:srcCompat="@drawable/ic_google"
+                android:clickable="true"
+                android:focusable="true" />
 
             <ImageView
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
-                app:srcCompat="@drawable/ic_facebook" />
+                app:srcCompat="@drawable/ic_facebook"
+                android:clickable="true"
+                android:focusable="true"/>
 
         </LinearLayout>
 
@@ -103,7 +122,8 @@
             android:layout_height="wrap_content"
             android:gravity="bottom|center"
             android:visibility="invisible"
-            style="?android:progressBarStyleSmall"/>
+            style="?android:progressBarStyleSmall"
+            android:layout_gravity="center"/>
 
     </LinearLayout>
 

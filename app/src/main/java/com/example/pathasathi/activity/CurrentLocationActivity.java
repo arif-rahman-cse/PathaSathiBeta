@@ -12,22 +12,28 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.pathasathi.FetchURL;
 import com.example.pathasathi.R;
+import com.example.pathasathi.interfaces.TaskLoadedCallback;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.Polyline;
+import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.button.MaterialButton;
+import com.google.android.material.snackbar.Snackbar;
 
-public class CurrentLocationActivity extends FragmentActivity implements OnMapReadyCallback, View.OnClickListener {
+public class CurrentLocationActivity extends FragmentActivity implements OnMapReadyCallback, View.OnClickListener, TaskLoadedCallback {
 
     private static final String TAG = "CurrentLocationActivity";
 
@@ -43,16 +49,37 @@ public class CurrentLocationActivity extends FragmentActivity implements OnMapRe
     private Boolean mLocationPermissionGranted = false;
     private FusedLocationProviderClient mFusedLocationProviderClient;
     private ImageView backButton;
+    private MaterialButton directionButton;
+    private Polyline currentPolyline;
+    private double xVictimLat;
+    private double xVictimLng;
+    String victimLat, victimLng;
+    String victimKey;
+    double userLat, userLng;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_current_location);
 
+
+        Intent intent = getIntent();
+        victimLat = intent.getStringExtra("VictimLat");
+        victimLng = intent.getStringExtra("VictimLng");
+        victimKey = intent.getStringExtra("Victim");
+
+        Log.d(TAG, "onCreate: Victim Lat: " + victimLat);
+        Log.d(TAG, "onCreate: Victim Lng: " + victimLng);
+
+        if (victimLat != null && victimLng != null) {
+            xVictimLat = Double.valueOf(victimLat);
+            xVictimLng = Double.valueOf(victimLng);
+        }
+
         backButton = findViewById(R.id.back_iv);
-
+        directionButton = findViewById(R.id.see_direction);
         backButton.setOnClickListener(this);
-
+        directionButton.setOnClickListener(this);
         getLocationPermission();
     }
 
@@ -65,8 +92,13 @@ public class CurrentLocationActivity extends FragmentActivity implements OnMapRe
 
         // Add a marker in my location and move the camera
         if (mLocationPermissionGranted) {
-            Log.d(TAG, "onMapReady : getDeviceLocation method is calling");
-            getDeviceLocation();
+            if (victimLat != null && victimLng != null) {
+                directionButton.setVisibility(View.VISIBLE);
+                moveCamera(new LatLng(xVictimLat, xVictimLng), DEFAULT_ZOOM, "Victim Location");
+            } else {
+                getDeviceLocation();
+            }
+
             mMap.setMyLocationEnabled(true);
             mMap.getUiSettings().setMyLocationButtonEnabled(true);
             mMap.getUiSettings().setZoomControlsEnabled(true);
@@ -89,6 +121,8 @@ public class CurrentLocationActivity extends FragmentActivity implements OnMapRe
                         Log.d(TAG, "onSuccess:");
                         if (location != null) {
                             Log.d(TAG, "Location is not null");
+                            userLat = location.getAltitude();
+                            userLng = location.getLongitude();
                             moveCamera(new LatLng(location.getLatitude(), location.getLongitude()), DEFAULT_ZOOM, "My Location");
                         } else {
                             Log.d(TAG, "Location is null");
@@ -154,7 +188,42 @@ public class CurrentLocationActivity extends FragmentActivity implements OnMapRe
     //---------------------------- Activity Listener ------------------------------------//
     @Override
     public void onClick(View v) {
-        startActivity(new Intent(CurrentLocationActivity.this, MainActivity.class));
-        finish();
+        int id = v.getId();
+        switch (id) {
+            case R.id.back_iv: {
+                startActivity(new Intent(CurrentLocationActivity.this, MainActivity.class));
+                finish();
+                break;
+            }
+            case R.id.see_direction: {
+                Log.d(TAG, "onClick: Clicked direction");
+                Snackbar.make(findViewById(R.id.main_container), "Under Development", Snackbar.LENGTH_SHORT).show();
+                break;
+            }
+        }
+
+    }
+
+    private String getUrl(LatLng origin, LatLng dest, String directionMode) {
+        // Origin of route
+        String str_origin = "origin=" + origin.latitude + "," + origin.longitude;
+        // Destination of route
+        String str_dest = "destination=" + dest.latitude + "," + dest.longitude;
+        // Mode
+        String mode = "mode=" + directionMode;
+        // Building the parameters to the web service
+        String parameters = str_origin + "&" + str_dest + "&" + mode;
+        // Output format
+        String output = "json";
+        // Building the url to the web service
+        String url = "https://maps.googleapis.com/maps/api/directions/" + output + "?" + parameters + "&key=" + getString(R.string.google_maps_key);
+        return url;
+    }
+
+    @Override
+    public void onTaskDone(Object... values) {
+        if (currentPolyline != null)
+            currentPolyline.remove();
+        currentPolyline = mMap.addPolyline((PolylineOptions) values[0]);
     }
 }

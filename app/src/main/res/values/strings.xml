@@ -105,7 +105,7 @@
     <string name="user_name">Arif Rahman</string>
 
     <!--Emergency Call Dialog String     -->
-    <string name="near_by_police">Call Near By Police</string>
+    <string name="near_by_police_station">Call Near By Police Station</string>
     <string name="near_by_fire_station">Call Near By Fire Station</string>
     <string name="near_by_rab">Call Near By RAB</string>
     <string name="near_by_ambulance">Call Near By Ambulance</string>

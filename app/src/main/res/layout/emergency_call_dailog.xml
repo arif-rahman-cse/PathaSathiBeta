@@ -30,7 +30,7 @@
                 android:drawablePadding="16dp"
                 android:focusable="true"
                 android:padding="8dp"
-                android:text="@string/near_by_police"
+                android:text="@string/near_by_police_station"
                 android:textSize="18sp" />
 
             <View
