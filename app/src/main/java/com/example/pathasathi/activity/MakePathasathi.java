@@ -88,6 +88,10 @@ public class MakePathasathi extends AppCompatActivity implements RecyclerViewIte
                             QuerySnapshot searchPathasathi = task.getResult();
                             if (searchPathasathi != null) {
 
+                                // Clear the list and add all the users again
+                                searchPathasathiArrayList.clear();
+                                searchPathasathiArrayList = new ArrayList<>();
+
                                 for (QueryDocumentSnapshot document : searchPathasathi) {
 
                                     String name = document.getString("name");
@@ -111,13 +115,13 @@ public class MakePathasathi extends AppCompatActivity implements RecyclerViewIte
     private void setsearchPathasathiOnRv(Context applicationContext, ArrayList<SearchPathasathi> searchPathasathiArrayList) {
 
         if (searchPathasathiArrayList.size() != 0) {
-            Log.d(TAG, "setOnlineDoctorsOnRv: onlineDoctorsArrayList is not empty");
+            Log.d(TAG, "setsearchPathasathiOnRv: Pathasathi ArrayList is not empty");
             searchPathasathiAdapter = new SearchPathasathiAdapter(applicationContext, searchPathasathiArrayList, this);
             mBinding.searchPathasathiRv.setLayoutManager(new LinearLayoutManager(MakePathasathi.this));
             mBinding.searchPathasathiRv.setHasFixedSize(true);
             mBinding.searchPathasathiRv.setAdapter(searchPathasathiAdapter);
         } else {
-            Log.d(TAG, "setOnlineDoctorsOnRv: onlineDoctorsArrayList is empty");
+            Log.d(TAG, "setOnlineDoctorsOnRv:Pathasathi ArrayList is empty");
         }
     }
 
