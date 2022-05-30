@@ -6,7 +6,7 @@ import android.graphics.Color;
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
 public final class AppUtils {
-    static SweetAlertDialog pDialog;
+     static SweetAlertDialog pDialog;
 
     public static void showProgress(Context context) {
         pDialog = new SweetAlertDialog(context, SweetAlertDialog.PROGRESS_TYPE);
