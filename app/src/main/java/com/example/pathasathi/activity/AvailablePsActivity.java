@@ -87,10 +87,10 @@ public class AvailablePsActivity extends FragmentActivity implements OnMapReadyC
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL,false));
 
-        availablePothSathiList.add(new AvailablePothSathi("Lelin Mahmud","2.1",R.drawable.arif));
-        availablePothSathiList.add(new AvailablePothSathi("Likhon Mahmud","1.2",R.drawable.arif));
-        availablePothSathiList.add(new AvailablePothSathi("Kayes Mahmud","3.2",R.drawable.arif));
-        availablePothSathiList.add(new AvailablePothSathi("Sumon Mahmud",".5",R.drawable.arif));
+        availablePothSathiList.add(new AvailablePothSathi("Arif Rahman","2.1",R.drawable.arif));
+        availablePothSathiList.add(new AvailablePothSathi("Mahfoozur Rahman","1.2",R.drawable.mahfooz));
+        availablePothSathiList.add(new AvailablePothSathi("Kayes Mahmud","3.2",R.drawable.ic_avator));
+        availablePothSathiList.add(new AvailablePothSathi("Sumon Mahmud",".5",R.drawable.ic_avator_01));
 
         adapter=new AvailableSatheAdapter(this,availablePothSathiList);
         adapter2=new AvailableSatheAdapter2(this,availablePothSathiList);
@@ -273,19 +273,19 @@ public class AvailablePsActivity extends FragmentActivity implements OnMapReadyC
         markerOptions1.position(latLng1);
         markerOptions.position(latLng);
         markerOptions.title("Your Current Location mh");
-        markerOptions1.title("User : 1 (Noor)Location");
-        markerOptions2.title("User : 2 (Zahid)Location");
+        markerOptions1.title("User : 1 (Arif)Location");
+        markerOptions2.title("User : 2 (Mahfooz)Location");
         markerOptions3.title("User : 3 (Sahed)Location");
         markerOptions4.title("User : 4 (Sumon)Location");
         markerOptions5.title("User : 5 (Ifty)Location");
         markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE));
-        markerOptions4.icon(BitmapDescriptorFactory.fromBitmap(createCustomMarker(AvailablePsActivity.this,R.drawable.arif,"Sumon")));
-        markerOptions3.icon(BitmapDescriptorFactory.fromBitmap(createCustomMarker(AvailablePsActivity.this,R.drawable.arif,"Sahed")));
-        markerOptions2.icon(BitmapDescriptorFactory.fromBitmap(createCustomMarker(AvailablePsActivity.this,R.drawable.arif,"Zahid")));
-        markerOptions1.icon(BitmapDescriptorFactory.fromBitmap(createCustomMarker(AvailablePsActivity.this,R.drawable.arif,"Noor")));
+        markerOptions4.icon(BitmapDescriptorFactory.fromBitmap(createCustomMarker(AvailablePsActivity.this,R.drawable.arif,"Arif")));
+        markerOptions3.icon(BitmapDescriptorFactory.fromBitmap(createCustomMarker(AvailablePsActivity.this,R.drawable.mahfooz,"Mahfooz")));
+        markerOptions2.icon(BitmapDescriptorFactory.fromBitmap(createCustomMarker(AvailablePsActivity.this,R.drawable.ic_avator,"Zahid")));
+        markerOptions1.icon(BitmapDescriptorFactory.fromBitmap(createCustomMarker(AvailablePsActivity.this,R.drawable.ic_avator_01,"Noor")));
 
         //markerOptions2.icon(BitmapDescriptorFactory.fromResource(R.drawable));
-        markerOptions5.icon(BitmapDescriptorFactory.fromBitmap(createCustomMarker(AvailablePsActivity.this,R.drawable.arif,"Ifty")));
+        markerOptions5.icon(BitmapDescriptorFactory.fromBitmap(createCustomMarker(AvailablePsActivity.this,R.drawable.arif,"Arif")));
 
 
         currentLocationMarker = mMap.addMarker(markerOptions);

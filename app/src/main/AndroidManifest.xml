@@ -20,6 +20,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity
+            android:name=".activity.LiveChatActivity"
+            android:theme="@style/LiveChatActivityTheme" />
         <activity android:name=".activity.AvailablePsActivity" />
         <activity android:name=".activity.MakePathasathi" />
         <activity android:name=".activity.MyPathaSathi" />
@@ -40,7 +43,6 @@
         <activity
             android:name=".activity.CurrentLocationActivity"
             android:label="@string/title_activity_current_location" />
-
         <activity
             android:name=".SplashScreen"
             android:theme="@style/SplashScreenTheme"
@@ -52,12 +54,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".activity.MainActivity"
             android:theme="@style/MainActivityTheme"
             android:windowSoftInputMode="adjustPan|stateHidden" />
-
+        <activity
+            android:name=".activity.ChatroomActivity"
+            android:theme="@style/LiveChatActivityTheme" />
 
         <service
             android:name=".notification.MyFirebaseMessagingService"
@@ -68,7 +71,6 @@
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
             </intent-filter>
         </service>
-
     </application>
 
 </manifest>

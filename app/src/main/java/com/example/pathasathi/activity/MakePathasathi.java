@@ -1,23 +1,39 @@
 package com.example.pathasathi.activity;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.SearchView;
 import android.widget.TextView;
 
 import com.example.pathasathi.R;
+import com.example.pathasathi.RecyclerViewItemClickListener;
+import com.example.pathasathi.adapters.SearchPathasathiAdapter;
 import com.example.pathasathi.databinding.ActivityMakePathasathiBinding;
-import com.example.pathasathi.fragment.AllPathaSathiFragment;
-import com.example.pathasathi.fragment.PSSuggestionFragment;
+import com.example.pathasathi.model.SearchPathasathi;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
-public class MakePathasathi extends AppCompatActivity {
+import java.util.ArrayList;
+
+public class MakePathasathi extends AppCompatActivity implements RecyclerViewItemClickListener {
     private static final String TAG = "MakePathasathi";
 
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private SearchPathasathi searchPathasathi;
+    private ArrayList<SearchPathasathi> searchPathasathiArrayList;
+    private SearchPathasathiAdapter searchPathasathiAdapter;
     private ActivityMakePathasathiBinding mBinding;
     private TextView title;
 
@@ -27,36 +43,109 @@ public class MakePathasathi extends AppCompatActivity {
         setContentView(R.layout.activity_make_pathasathi);
 
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_make_pathasathi);
-
         title = findViewById(R.id.title_tv);
-
         title.setText(getString(R.string.make_pathasathi));
 
-        mBinding.suggestionBtn.setOnClickListener(new View.OnClickListener() {
+        searchPathasathiArrayList = new ArrayList<>();
+
+        findViewById(R.id.back_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                
-                Log.d(TAG, "onClick: suggestion button clicked");
-                replaceFragment(new PSSuggestionFragment());
+                hideSoftKeyboard();
+                onBackPressed();
             }
         });
 
-        mBinding.allPathasathiBtn.setOnClickListener(new View.OnClickListener() {
+        mBinding.searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
-            public void onClick(View v) {
-                replaceFragment(new AllPathaSathiFragment());
+            public boolean onQueryTextSubmit(String query) {
+                getSearchedPathasathi(query);
+                hideSoftKeyboard();
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return true;
             }
         });
-
-
 
 
     }
 
-    private void replaceFragment(Fragment fragment) {
-        Log.d(TAG, "replaceFragment: called");
-        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.make_pathasathi_container, fragment);
-        fragmentTransaction.commit();
+    private void getSearchedPathasathi(String query) {
+        Log.d(TAG, "getSearchedProduct: Query Text: " + query);
+
+        final CollectionReference docRef = db.collection(getString(R.string.collection_users));
+
+        docRef.whereEqualTo("name", query)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+
+                        if (task.isSuccessful()) {
+                            QuerySnapshot searchPathasathi = task.getResult();
+                            if (searchPathasathi != null) {
+
+                                // Clear the list and add all the users again
+                                searchPathasathiArrayList.clear();
+                                searchPathasathiArrayList = new ArrayList<>();
+
+                                for (QueryDocumentSnapshot document : searchPathasathi) {
+
+                                    String name = document.getString("name");
+                                    Log.d(TAG, "onComplete: Pathasathi Name: " + name);
+
+                                    addSearchPathasathi(document);
+
+                                }
+
+                                setsearchPathasathiOnRv(getApplicationContext(), searchPathasathiArrayList);
+                            }
+                        } else {
+                            Log.d(TAG, "onComplete: Error getting documents: " + task.getException());
+                        }
+
+                    }
+                });
+
+    }
+
+    private void setsearchPathasathiOnRv(Context applicationContext, ArrayList<SearchPathasathi> searchPathasathiArrayList) {
+
+        if (searchPathasathiArrayList.size() != 0) {
+            Log.d(TAG, "setsearchPathasathiOnRv: Pathasathi ArrayList is not empty");
+            searchPathasathiAdapter = new SearchPathasathiAdapter(applicationContext, searchPathasathiArrayList, this);
+            mBinding.searchPathasathiRv.setLayoutManager(new LinearLayoutManager(MakePathasathi.this));
+            mBinding.searchPathasathiRv.setHasFixedSize(true);
+            mBinding.searchPathasathiRv.setAdapter(searchPathasathiAdapter);
+        } else {
+            Log.d(TAG, "setOnlineDoctorsOnRv:Pathasathi ArrayList is empty");
+        }
+    }
+
+    private void addSearchPathasathi(QueryDocumentSnapshot document) {
+
+        searchPathasathi = new SearchPathasathi(
+                document.getString("name"),
+                document.getString("avatar"),
+                document.getString("user_id"));
+
+        searchPathasathiArrayList.add(searchPathasathi);
+    }
+
+    @Override
+    public void didPressed(String id) {
+        Log.d(TAG, "didPressed: ID" + id);
+    }
+
+    private void hideSoftKeyboard() {
+
+        View view = this.getCurrentFocus();
+        if (view != null) {
+            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
     }
 }

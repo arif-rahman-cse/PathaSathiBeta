@@ -32,6 +32,7 @@ import com.example.pathasathi.R;
 import com.example.pathasathi.activity.AvailablePsActivity;
 import com.example.pathasathi.activity.CurrentLocationActivity;
 import com.example.pathasathi.activity.MainActivity;
+import com.example.pathasathi.activity.MyPathaSathi;
 import com.example.pathasathi.util.AppUtils;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -130,8 +131,7 @@ public class Home extends Fragment implements View.OnClickListener {
                 break;
 
             case R.id.my_pathasati:
-                Snackbar.make(getActivity().findViewById(android.R.id.content),
-                        "Under Development..", Snackbar.LENGTH_LONG).show();
+                startActivity(new Intent(getContext(), MyPathaSathi.class));
                 break;
 
             case R.id.mark_as_a_safe:
@@ -259,6 +259,7 @@ public class Home extends Fragment implements View.OnClickListener {
 
                         Log.d(TAG, "numbers: " + num1 + " " + num2);
 
+                        assert num1 != null;
                         if (num1.trim().length() > 0) {
 
                             if (ContextCompat.checkSelfPermission(Objects.requireNonNull(getContext()), Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
