@@ -302,25 +302,19 @@ public class ChatroomActivity extends AppCompatActivity implements
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-
-            case android.R.id.home: {
-                UserListFragment fragment =
-                        (UserListFragment) getSupportFragmentManager().findFragmentByTag(getString(R.string.fragment_user_list));
-                if (fragment != null) {
-                    if (fragment.isVisible()) {
-                        getSupportFragmentManager().popBackStack();
-                        return true;
-                    }
+        if (item.getItemId() == android.R.id.home) {
+            UserListFragment fragment =
+                    (UserListFragment) getSupportFragmentManager().findFragmentByTag(getString(R.string.fragment_user_list));
+            if (fragment != null) {
+                if (fragment.isVisible()) {
+                    getSupportFragmentManager().popBackStack();
+                    return true;
                 }
-                finish();
-                return true;
             }
-
-            default: {
-                return super.onOptionsItemSelected(item);
-            }
+            finish();
+            return true;
         }
+        return super.onOptionsItemSelected(item);
 
     }
 

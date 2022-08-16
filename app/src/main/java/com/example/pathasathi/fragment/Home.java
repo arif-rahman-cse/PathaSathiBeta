@@ -166,8 +166,6 @@ public class Home extends Fragment implements View.OnClickListener {
             notificationBody.put("message", NOTIFICATION_MESSAGE);
             notificationBody.put("lat", lat);
             notificationBody.put("lng", lng);
-
-
             notification.put("to", TOPIC);
             notification.put("data", notificationBody);
         } catch (JSONException e) {

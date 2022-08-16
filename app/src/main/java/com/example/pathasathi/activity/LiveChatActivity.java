@@ -133,30 +133,27 @@ public class LiveChatActivity extends AppCompatActivity implements View.OnClickL
         CollectionReference chatroomsCollection = mDb
                 .collection(getString(R.string.collection_chatrooms));
 
-        mChatroomEventListener = chatroomsCollection.addSnapshotListener(new EventListener<QuerySnapshot>() {
-            @Override
-            public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
-                Log.d(TAG, "onEvent: called.");
+        mChatroomEventListener = chatroomsCollection.addSnapshotListener((queryDocumentSnapshots, e) -> {
+            Log.d(TAG, "onEvent: called.");
 
-                if (e != null) {
-                    Log.e(TAG, "onEvent: Listen failed.", e);
-                    return;
-                }
-
-                if (queryDocumentSnapshots != null) {
-                    for (QueryDocumentSnapshot doc : queryDocumentSnapshots) {
-
-                        Chatroom chatroom = doc.toObject(Chatroom.class);
-                        if (!mChatroomIds.contains(chatroom.getChatroom_id())) {
-                            mChatroomIds.add(chatroom.getChatroom_id());
-                            mChatrooms.add(chatroom);
-                        }
-                    }
-                    Log.d(TAG, "onEvent: number of chatrooms: " + mChatrooms.size());
-                    mChatroomRecyclerAdapter.notifyDataSetChanged();
-                }
-
+            if (e != null) {
+                Log.e(TAG, "onEvent: Listen failed.", e);
+                return;
             }
+
+            if (queryDocumentSnapshots != null) {
+                for (QueryDocumentSnapshot doc : queryDocumentSnapshots) {
+
+                    Chatroom chatroom = doc.toObject(Chatroom.class);
+                    if (!mChatroomIds.contains(chatroom.getChatroom_id())) {
+                        mChatroomIds.add(chatroom.getChatroom_id());
+                        mChatrooms.add(chatroom);
+                    }
+                }
+                Log.d(TAG, "onEvent: number of chatrooms: " + mChatrooms.size());
+                mChatroomRecyclerAdapter.notifyDataSetChanged();
+            }
+
         });
     }
 
@@ -205,17 +202,14 @@ public class LiveChatActivity extends AppCompatActivity implements View.OnClickL
 
         chatroom.setChatroom_id(newChatroomRef.getId());
 
-        newChatroomRef.set(chatroom).addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                hideDialog();
+        newChatroomRef.set(chatroom).addOnCompleteListener(task -> {
+            hideDialog();
 
-                if (task.isSuccessful()) {
-                    navChatroomActivity(chatroom);
-                } else {
-                    View parentLayout = findViewById(android.R.id.content);
-                    Snackbar.make(parentLayout, "Something went wrong.", Snackbar.LENGTH_SHORT).show();
-                }
+            if (task.isSuccessful()) {
+                navChatroomActivity(chatroom);
+            } else {
+                View parentLayout = findViewById(android.R.id.content);
+                Snackbar.make(parentLayout, "Something went wrong.", Snackbar.LENGTH_SHORT).show();
             }
         });
     }
